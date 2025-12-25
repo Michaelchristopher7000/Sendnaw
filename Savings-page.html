@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Future of Savings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./script.css">
+</head>
+
+<body style="font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #101828;">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-white bg-opacity-75 border-bottom py-3"
+        style="backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.04);">
+        <div class="container">
+            <!-- logo anchor -->
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+                <img src="/images/SendNaw_logo_main-removebg-preview.png" alt="SendNaw" height="45">
+            </a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sendnawNav">
+                <span class="navbar-toggler-icon"></span>
+                <span class="visually-hidden">toggle icon</span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="sendnawNav">
+                <ul class="navbar-nav mx-auto align-items-center">
+
+                    <li class="nav-item dropdown position-static mx-lg-3">
+                        <a class="nav-link dropdown-toggle fw-semibold text-dark px-0" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                            onmouseover="this.style.borderBottomColor='#6f42c1'"
+                            onmouseout="this.style.borderBottomColor='transparent'">
+                            Products
+                        </a>
+                        <div class="dropdown-menu shadow-lg border-0 rounded-4 mt-2 p-4"
+                            style="width: 100%; max-width: 600px; left: 50%; transform: translateX(-50%);">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h6 class="text-uppercase small fw-bold text-primary mb-3"
+                                        style="letter-spacing: 1px;">Payments</h6>
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"><i
+                                                class="bi bi-send-fill"></i></div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Instant Transfers</div>
+                                            <small class="text-muted">Move money in seconds</small>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-success bg-opacity-10 p-2 rounded-3 text-success"><i
+                                                class="bi bi-phone-vibrate"></i></div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Phone Number Pay</div>
+                                            <small class="text-muted">No account number needed</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-uppercase small fw-bold text-warning mb-3"
+                                        style="letter-spacing: 1px;">Lifestyle</h6>
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-warning bg-opacity-10 p-2 rounded-3 text-warning"><i
+                                                class="bi bi-lightning-charge-fill"></i></div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Bills & Airtime</div>
+                                            <small class="text-muted">Utility payments made easy</small>
+                                        </div>
+                                    </a>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"
+                                            style="color: #6f42c1 !important; background-color: rgba(111, 66, 193, 0.1) !important;">
+                                            <i class="bi bi-credit-card-2-front-fill"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Virtual Cards</div>
+                                            <small class="text-muted">Shop globally with USD cards</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-uppercase small fw-bold text-danger mb-3"
+                                        style="letter-spacing: 1px;">Global Commerce</h6>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-danger bg-opacity-10 p-2 rounded-3 text-danger">
+                                            <i class="bi bi-globe2"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">USD Virtual Cards</div>
+                                            <small class="text-muted">Pay for Netflix, Amazon & Ads</small>
+                                        </div>
+                                    </a>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"
+                                            style="color: #6f42c1 !important; background-color: rgba(111, 66, 193, 0.1) !important;">
+                                            <i class="bi bi-cash-stack"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Multi-Currency Wallets</div>
+                                            <small class="text-muted">Hold Naira, Dollars, and Pounds</small>
+                                        </div>
+                                    </a>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-info bg-opacity-10 p-2 rounded-3 text-info">
+                                            <i class="bi bi-cart-check-fill"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">SendNaw Pay</div>
+                                            <small class="text-muted">One-click checkout for merchants</small>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle fw-semibold text-dark px-0" href="#" role="button"
+                            data-bs-toggle="dropdown"
+                            style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                            onmouseover="this.style.borderBottomColor='#6f42c1'"
+                            onmouseout="this.style.borderBottomColor='transparent'">
+                            Company
+                        </a>
+                        <div class="dropdown-menu shadow-lg border-0 rounded-4 p-2 mt-2" style="min-width: 200px;">
+                            <a class="dropdown-item py-2 rounded-2 fw-medium" href="./About.html">About Us</a>
+                            <a class="dropdown-item py-2 rounded-2 fw-medium" href="./Career.html">Careers</a>
+                            <a class="dropdown-item py-2 rounded-2 fw-medium" href="./Contact.html">Contact</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item mx-lg-3">
+                        <a class="nav-link fw-semibold text-dark px-0" href="./FAQ.html"
+                            style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                            onmouseover="this.style.borderBottomColor='#6f42c1'"
+                            onmouseout="this.style.borderBottomColor='transparent'">
+                            FAQ
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    <a href="./signin.html" class="nav-link fw-bold px-0 text-dark text-decoration-none"
+                        style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                        onmouseover="this.style.borderBottomColor='#6f42c1'"
+                        onmouseout="this.style.borderBottomColor='transparent'">
+                        Sign in
+                    </a>
+                    <a href="./signup.html" class="btn px-4 py-2 rounded-pill fw-bold shadow-sm border-0"
+                        style="background-color: #6f42c1; color: #fff;">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-5 text-center position-relative overflow-hidden">
+        <div class="position-absolute"
+            style="width: 400px; height: 400px; background: rgba(111, 66, 193, 0.05); filter: blur(100px); top: -100px; left: -100px; z-index: -1;">
+        </div>
+
+        <div class="container py-5">
+            <div class="d-inline-flex align-items-center rounded-pill px-3 py-1 mb-4 shadow-sm border bg-white">
+                <span class="badge rounded-pill bg-primary me-2"
+                    style="background-color: #6f42c1 !important;">NEW</span>
+                <small class="fw-bold text-muted">Earn up to 17.5% per annum</small>
+            </div>
+
+            <h1 class="display-2 fw-bolder mb-3" style="letter-spacing: -3px; line-height: 1.05;">
+                Small Goals. <br><span
+                    style="background: linear-gradient(90deg, #6f42c1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Limitless
+                    Dreams.</span>
+            </h1>
+
+            <p class="lead text-muted mb-5 mx-auto" style="max-width: 600px; font-weight: 400;">
+                Join over 2 million users building wealth through automated, high-yield savings. Secure, smart, and
+                built for your lifestyle.
+            </p>
+
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#" class="btn btn-dark btn-lg rounded-4 px-4 py-2 shadow-lg d-flex align-items-center border-0"
+                    style="background: #000;">
+                    <i class="bi bi-apple fs-2 me-3"></i>
+                    <div class="text-start" style="line-height: 1.2;">
+                        <small class="d-block opacity-75" style="font-size: 0.65rem;">Download on the</small>
+                        <span class="fw-bold" style="font-size: 1.1rem;">App Store</span>
+                    </div>
+                </a>
+                <a href="#" class="btn btn-dark btn-lg rounded-4 px-4 py-2 shadow-lg d-flex align-items-center border-0"
+                    style="background: #000;">
+                    <i class="bi bi-google-play fs-2 me-3 text-warning"></i>
+                    <div class="text-start" style="line-height: 1.2;">
+                        <small class="d-block opacity-75" style="font-size: 0.65rem;">Get it on</small>
+                        <span class="fw-bold" style="font-size: 1.1rem;">Google Play</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="p-5 bg-white border rounded-5 h-100 shadow-sm transition-all"
+                    style="border-color: #f2f4f7 !important;">
+                    <div class="mb-4 d-flex align-items-center justify-content-center rounded-4 shadow-sm"
+                        style="width: 56px; height: 56px; background: #f4ebff; color: #6f42c1;">
+                        <i class="bi bi-lightning-charge-fill fs-4"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">High Yield</h4>
+                    <p class="text-muted lh-lg">Beating inflation is easier when you earn 17.5% annually. We pay
+                        interest daily, so your money works as hard as you do.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-5 bg-white border rounded-5 h-100 shadow-sm" style="border-color: #f2f4f7 !important;">
+                    <div class="mb-4 d-flex align-items-center justify-content-center rounded-4 shadow-sm"
+                        style="width: 56px; height: 56px; background: #e0f2fe; color: #0ea5e9;">
+                        <i class="bi bi-shield-check fs-4"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Fortified Security</h4>
+                    <p class="text-muted lh-lg">Your savings are NDIC-insured and protected by AES-256 encryption. Your
+                        financial safety is our highest priority.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-5 bg-white border rounded-5 h-100 shadow-sm" style="border-color: #f2f4f7 !important;">
+                    <div class="mb-4 d-flex align-items-center justify-content-center rounded-4 shadow-sm"
+                        style="width: 56px; height: 56px; background: #ecfdf5; color: #10b981;">
+                        <i class="bi bi-moon-stars-fill fs-4"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Ethical Saving</h4>
+                    <p class="text-muted lh-lg">Our Halal Savings plan offers a no-interest alternative that follows
+                        Islamic finance principles strictly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 mt-5">
+        <div class="container py-5 bg-dark rounded-5 shadow-lg position-relative overflow-hidden"
+            style="background: linear-gradient(145deg, #101828, #1d2939) !important;">
+            <div class="position-absolute"
+                style="width: 300px; height: 300px; background: #6f42c1; filter: blur(120px); bottom: -100px; right: -50px; opacity: 0.3;">
+            </div>
+
+            <div class="text-center mb-5 position-relative">
+                <h2 class="fw-bold text-white display-5">Seamless Savings</h2>
+                <p class="text-secondary">Automate your financial future in four simple steps.</p>
+            </div>
+
+            <div class="row g-4 position-relative">
+                <div class="col-6 col-md-3">
+                    <div class="text-center p-3">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center border border-secondary rounded-circle"
+                            style="width: 50px; height: 50px; color: #a855f7;">1</div>
+                        <h6 class="text-white fw-bold">Register</h6>
+                        <p class="text-secondary small">ID verification in seconds.</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="text-center p-3">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center border border-secondary rounded-circle"
+                            style="width: 50px; height: 50px; color: #a855f7;">2</div>
+                        <h6 class="text-white fw-bold">Connect</h6>
+                        <p class="text-secondary small">Secure bank linking.</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="text-center p-3">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center border border-secondary rounded-circle"
+                            style="width: 50px; height: 50px; color: #a855f7;">3</div>
+                        <h6 class="text-white fw-bold">Automate</h6>
+                        <p class="text-secondary small">Set your savings rules.</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="text-center p-3">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center border border-secondary rounded-circle"
+                            style="width: 50px; height: 50px; color: #a855f7;">4</div>
+                        <h6 class="text-white fw-bold">Prosper</h6>
+                        <p class="text-secondary small">Daily interest updates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white border-top border-bottom">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+
+                <!-- Left Content -->
+                <div class="col-lg-5">
+                    <div class="badge rounded-pill px-3 py-2 mb-3"
+                        style="background: #f3e8ff; color: #6f42c1; font-weight: 600;">
+                        <i class="bi bi-calculator me-1"></i> EARNINGS CALCULATOR
+                    </div>
+                    <h2 class="display-5 fw-bolder mb-4" style="letter-spacing: -1px;">
+                        Watch your money <span class="text-primary" style="color: #6f42c1 !important;">multiply.</span>
+                    </h2>
+                    <p class="text-muted mb-4 lh-lg">
+                        Transparency is at our core. Use our projection tool to see how much your savings can grow over
+                        time
+                        with our 17.5% annual yield. Plan better and achieve your financial goals faster.
+                    </p>
+                    <div class="d-grid mb-4">
+                        <button id="explorePlansBtn" class="btn rounded-pill fw-bold py-3 px-4 shadow-sm"
+                            style="border-color: #6f42c1; color: #6f42c1; transition: 0.3s;"
+                            onmouseover="this.style.backgroundColor='#6f42c1'; this.style.color='white'"
+                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#6f42c1'">
+                            Explore All Savings Plans
+                        </button>
+                    </div>
+
+                    <div id="savingsModule"
+                        style="display: none; background: white; border-radius: 24px; padding: 30px; border: 1px solid #eaecf0; font-family: 'Inter', sans-serif; width: 100%; max-width: 500px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+
+                        <div id="planSelectionView">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h5 style="font-weight: 800; margin-bottom: 0; color: #101828;">Choose a Plan</h5>
+                                <button onclick="document.getElementById('savingsModule').style.display='none'"
+                                    style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
+                            </div>
+
+                            <button onclick="showAccessOptions('Flexible Savings')"
+                                style="width: 100%; text-align: left; padding: 15px; border: 1px solid #f2f4f7; background: #fcfcfd; border-radius: 16px; margin-bottom: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <span style="display: block; font-weight: 700; color: #101828;">Flexible
+                                        Savings</span>
+                                    <span style="font-size: 0.8rem; color: #667085;">17.5% Annual Yield</span>
+                                </div>
+                                <i class="bi bi-chevron-right" style="color: #6f42c1;"></i>
+                            </button>
+
+                            <button onclick="showAccessOptions('Fixed Deposit')"
+                                style="width: 100%; text-align: left; padding: 15px; border: 1px solid #f2f4f7; background: #fcfcfd; border-radius: 16px; margin-bottom: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <span style="display: block; font-weight: 700; color: #101828;">Fixed Deposit</span>
+                                    <span style="font-size: 0.8rem; color: #667085;">High-yield locked savings</span>
+                                </div>
+                                <i class="bi bi-chevron-right" style="color: #6f42c1;"></i>
+                            </button>
+                        </div>
+
+                        <div id="accessHubView" style="display: none; text-align: center;">
+                            <button onclick="goBackToPlans()"
+                                style="border: none; background: none; color: #667085; font-size: 0.8rem; cursor: pointer; margin-bottom: 15px;">
+                                <i class="bi bi-arrow-left"></i> Change Plan
+                            </button>
+
+                            <h5 id="selectedPlanTitle" style="font-weight: 800; margin-bottom: 10px;">Get Started</h5>
+                            <p style="font-size: 0.85rem; color: #667085; margin-bottom: 25px;">Download or sign in to
+                                start your <span id="planNameLabel" style="color:#6f42c1; font-weight: 600;"></span>.
+                            </p>
+
+                            <a href="signin.html"
+                                style="display: block; background: #6f42c1; color: white; text-decoration: none; padding: 14px; border-radius: 50px; font-weight: 700; margin-bottom: 15px;">SIGN
+                                IN TO ACCESS</a>
+
+                            <div style="display: flex; gap: 10px;">
+                                <a href="https://play.google.com" target="_blank"
+                                    style="flex: 1; border: 1px solid #d0d5dd; color: #101828; text-decoration: none; padding: 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;">PlayStore</a>
+                                <a href="https://apple.com" target="_blank"
+                                    style="flex: 1; border: 1px solid #d0d5dd; color: #101828; text-decoration: none; padding: 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;">AppStore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Calculator Card -->
+                <div class="col-lg-7">
+                    <div class="p-5 rounded-5 shadow-lg border"
+                        style="background: #101828; border-color: #1d2939 !important;">
+                        <div class="row g-4">
+                            <!-- Initial Deposit -->
+                            <div class="col-md-6">
+                                <label class="text-secondary small fw-bold text-uppercase mb-2 d-block">Initial
+                                    Deposit</label>
+                                <div class="input-group input-group-lg border-0 shadow-none">
+                                    <span
+                                        class="input-group-text bg-transparent border-secondary text-white border-end-0">₦</span>
+                                    <input type="text"
+                                        class="form-control bg-transparent border-secondary text-white border-start-0 shadow-none"
+                                        placeholder="50,000" style="font-weight: 700;">
+                                </div>
+                            </div>
+
+                            <!-- Time Period -->
+                            <div class="col-md-6">
+                                <label class="text-secondary small fw-bold text-uppercase mb-2 d-block">Time
+                                    Period</label>
+                                <select
+                                    class="form-select form-select-lg bg-transparent border-secondary text-white shadow-none"
+                                    style="font-weight: 700;">
+                                    <option class="text-dark">12 Months</option>
+                                    <option class="text-dark">24 Months</option>
+                                    <option class="text-dark">5 Years</option>
+                                </select>
+                            </div>
+
+                            <!-- Result -->
+                            <div class="col-12 mt-5">
+                                <div class="p-4 rounded-4"
+                                    style="background: rgba(111, 66, 193, 0.15); border: 1px dashed rgba(168, 85, 247, 0.4);">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="text-secondary small d-block mb-1">Estimated Total
+                                                Balance</span>
+                                            <h2 class="text-white fw-bolder mb-0">₦58,750.00</h2>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-success rounded-pill px-3 py-2">+ 17.5% APY</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress and Info -->
+                        <div class="mt-4 pt-2">
+                            <div class="progress" style="height: 6px; background: #1d2939;">
+                                <div class="progress-bar" role="progressbar" style="width: 75%; background: #6f42c1;"
+                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small class="text-secondary d-block mt-2 text-center">
+                                Interest is calculated daily and paid into your wallet automatically.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="container py-5 my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <h3 class="fw-bolder mb-5 text-center fs-2" style="letter-spacing: -1px;">Common Questions</h3>
+                <div class="accordion accordion-flush shadow-sm rounded-4 border overflow-hidden bg-white"
+                    id="faqAccordion">
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4 shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Is my money really safe?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted px-4 pb-4">
+                                Yes. SendNaw works with regulated Microfinance Banks licensed by the CBN. All deposits
+                                are protected up to the NDIC maximum.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 border-top">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4 shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#faq2">
+                                What are the hidden fees?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted px-4 pb-4">
+                                None. We believe in transparency. No maintenance fees, no SMS charges, and no withdrawal
+                                penalties on flexible plans.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- footer -->
+    <footer class="pt-5 pb-4 bg-dark">
+        <div class="container text-white">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4">
+                    <!-- logo anchor -->
+                    <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+                        <img src="/images/SendNaw_logo_main-removebg-preview.png" alt="SendNaw" height="45">
+                    </a>
+                    <p class="small pe-lg-5 text-white-50 pt-5">
+                        SendNaw is a modern financial platform providing seamless banking, payments, and lifestyle
+                        services for the digital age.
+                    </p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-white opacity-50 text-decoration-none"><i
+                                class="bi bi-twitter-x fs-4"></i></a>
+                        <a href="https://www.instagram.com/joinsendnaw?igsh=MW5tb2Y4Mjd3ZnlhbA=="
+                            class="text-white opacity-50 text-decoration-none"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white opacity-50 text-decoration-none"><i
+                                class="bi bi-facebook fs-4"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="fw-bold mb-4 text-uppercase small" style="letter-spacing: 1px;">Products</h6>
+                    <ul class="list-unstyled d-grid gap-3">
+                        <li><a href="#" class="text-white-50 small text-decoration-none link-light">Personal Account</a>
+                        </li>
+                        <li><a href="./virtual-card-page.html"
+                                class="text-white-50 small text-decoration-none link-light">SendNaw Cards</a>
+                        </li>
+                        <li><a href="#" class="text-white-50 small text-decoration-none link-light">Bill Payments</a>
+                        </li>
+                        <li><a href="./Savings-page.html"
+                                class="text-white-50 small text-decoration-none link-light">Savings</a></li>
+                        <li><a href="./Savings-page.html"
+                                class="text-white-50 small text-decoration-none link-light">Loan</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="fw-bold mb-4 text-uppercase small" style="letter-spacing: 1px;">Company</h6>
+                    <ul class="list-unstyled d-grid gap-3">
+                        <li><a href="./About.html" class="text-white-50 small text-decoration-none link-light">About
+                                Us</a></li>
+                        <li><a href="./Career.html"
+                                class="text-white-50 small text-decoration-none link-light">Careers</a></li>
+                        <li><a href="./Contact.html" class="text-white-50 small text-decoration-none link-light">Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small" style="letter-spacing: 1px;">Regulatory Information
+                    </h6>
+                    <p class="text-white-50 small mb-4 lh-lg">
+                        SendNaw is a financial technology company, not a bank. Banking services are provided by our
+                        licensed partner banks. All deposits are insured by the NDIC.
+                    </p>
+                    <div class="p-3 rounded-3 bg-white bg-opacity-10">
+                        <p class="small text-white mb-0 fw-bold">Verified Provider</p>
+                        <p class="text-white-50 mb-0" style="font-size: 11px;">CBN Licensed | NDIC Insured</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary opacity-25 my-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="text-white-50 small mb-0">&copy; 2025 SendNaw Technologies Limited. RC: 1234567</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end gap-3">
+                        <a href="./privacy-policy.html"
+                            class="text-white-50 small text-decoration-none link-light">Privacy.</a>
+                        <a href="./terms-condition.html"
+                            class="text-white-50 small text-decoration-none link-light">Terms and Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle the main module
+        document.getElementById('explorePlansBtn').addEventListener('click', () => {
+            const module = document.getElementById('savingsModule');
+            module.style.display = module.style.display === 'none' ? 'block' : 'none';
+
+            // Scroll to the module smoothly on mobile
+            if (module.style.display === 'block') {
+                module.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        // Handle Plan Selection
+        const showAccessOptions = (planName) => {
+            document.getElementById('planSelectionView').style.display = 'none';
+            document.getElementById('accessHubView').style.display = 'block';
+            document.getElementById('planNameLabel').innerText = planName;
+        };
+
+        // Go back to list
+        const goBackToPlans = () => {
+            document.getElementById('planSelectionView').style.display = 'block';
+            document.getElementById('accessHubView').style.display = 'none';
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

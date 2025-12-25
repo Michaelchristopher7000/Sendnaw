@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --brand-purple: #6f42c1;
+            --text-main: #1d2939;
+            --text-muted: #667085;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Reading Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            z-index: 2000;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--brand-purple);
+            width: 0%;
+        }
+
+        /* Typography & Layout */
+        .policy-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: 100px;
+            border-left: 2px solid #f2f4f7;
+            padding-left: 20px;
+        }
+
+        .nav-link-custom {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .nav-link-custom:hover {
+            color: var(--brand-purple);
+        }
+
+        h2 {
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-top: 3.5rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #475467;
+            font-size: 1.05rem;
+        }
+
+        .contact-card {
+            background: #f9fafb;
+            border-radius: 16px;
+            border: 1px solid #eaecf0;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg border-bottom bg-white sticky-top py-3">
+        <div class="container">
+            <a href="./Index.html" class="text-decoration-none text-dark d-flex align-items-center">
+                <i class="bi bi-chevron-left me-2"></i>
+                <span class="fw-bold">Legal Center</span>
+            </a>
+
+            <div class="d-none d-md-block">
+                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3">Download PDF</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-5 mt-4">
+        <div class="container text-center">
+            <div class="badge rounded-pill px-3 py-2 mb-3"
+                style="background: #f4ebff; color: var(--brand-purple); font-weight: 600;">VERSION 2.1</div>
+            <h1 class="display-3 fw-bold mb-3" style="letter-spacing: -3px;">Privacy Policy</h1>
+            <p class="text-muted mx-auto" style="max-width: 600px;">We believe data privacy is a fundamental human
+                right. This policy outlines how we protect yours.</p>
+        </div>
+    </header>
+
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="section-nav">
+                    <p class="small fw-bold text-uppercase text-muted mb-3" style="letter-spacing: 1px;">On this page
+                    </p>
+                    <a href="#collect" class="nav-link-custom">1. Data Collection</a>
+                    <a href="#use" class="nav-link-custom">2. Purpose of Processing</a>
+                    <a href="#security" class="nav-link-custom">3. Protection Systems</a>
+                    <a href="#sharing" class="nav-link-custom">4. Third-Party Access</a>
+                    <a href="#contact" class="nav-link-custom">5. Inquiries</a>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-12">
+                <div class="policy-container">
+
+                    <section id="collect">
+                        <h2>1. Information We Collect</h2>
+                        <p>At SendNaw, we collect information that is strictly necessary to provide our financial
+                            services. This includes:</p>
+                        <ul class="text-muted mb-4">
+                            <li><strong>Identity Data:</strong> Full name, Date of Birth, and Government ID (BVN/NIN).
+                            </li>
+                            <li><strong>Contact Data:</strong> Verified email address and mobile phone number.</li>
+                            <li><strong>Transaction Data:</strong> Details about payments to and from your SendNaw
+                                accounts.</li>
+                        </ul>
+                    </section>
+
+                    <section id="use">
+                        <h2>2. How We Use Your Information</h2>
+                        <p>We process your data primarily to satisfy our legal obligations and provide features.
+                            Specifically, we use it for identity verification (KYC), fraud detection, and transaction
+                            processing.</p>
+                    </section>
+
+                    <section id="security">
+                        <h2>3. Data Security & Storage</h2>
+                        <p>Your data is encrypted using 256-bit AES encryption before being stored in our secure
+                            servers. We conduct regular penetration testing to ensure our systems remain unhackable.</p>
+                    </section>
+
+                    <section id="sharing">
+                        <h2>4. Sharing Your Information</h2>
+                        <p>We do not share your data with advertisers. We only share data with licensed financial
+                            partners (like the NDIC or payment processors) to facilitate your transactions.</p>
+                    </section>
+
+                    <div id="contact" class="contact-card mt-5">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <h4 class="fw-bold">Questions about your privacy?</h4>
+                                <p class="small text-muted mb-0">Our Data Protection Officer is ready to assist you with
+                                    any inquiries regarding your personal data.</p>
+                            </div>
+                            <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                                <a href="mailto:privacy@sendnaw.com" class="btn btn-dark rounded-pill px-4 py-2">Email
+                                    Privacy Team</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section id="marketing">
+                        <h2>6. Marketing & Communications</h2>
+                        <p>We believe in meaningful communication. You will only receive marketing emails or SMS if you
+                            have opted in. We use your transaction patterns to offer personalized financial products
+                            that help you save or earn more.</p>
+                        <ul class="text-muted mb-4">
+                            <li><strong>Opt-out:</strong> You can click "Unsubscribe" in any email or toggle off
+                                marketing notifications in your SendNaw App Settings.</li>
+                            <li><strong>Service Alerts:</strong> We will always send essential security alerts and
+                                transaction receipts, regardless of your marketing preferences.</li>
+                        </ul>
+                    </section>
+
+                    <section id="international">
+                        <h2>7. International Data Transfers</h2>
+                        <p>As a global fintech platform, your information may be processed on servers located outside of
+                            your home country (e.g., for cloud storage or international wire transfers). We ensure that
+                            all international transfers comply with the highest data protection standards (such as GDPR
+                            or NDPR) via standard contractual clauses.</p>
+                    </section>
+
+                    <section id="retention">
+                        <h2>8. Data Retention Policy</h2>
+                        <p>We do not keep your data forever. We retain your personal information only as long as:
+                        <ul class="text-muted">
+                            <li>Your SendNaw account is active.</li>
+                            <li>It is required to comply with financial regulations and anti-money laundering (AML) laws
+                                (typically 5–7 years after account closure).</li>
+                        </ul>
+                        Once these periods expire, your data is permanently deleted or anonymized for research purposes.
+                        </p>
+                    </section>
+
+                    <section id="automated">
+                        <h2>9. Automated Decision Making</h2>
+                        <p>To provide instant credit limits and fraud protection, we use automated algorithms. These
+                            systems analyze your transaction history to protect your account from suspicious activity.
+                            You have the right to request a manual review of any automated decision that significantly
+                            affects you, such as a loan rejection.</p>
+                    </section>
+
+                    <section id="open-banking">
+                        <h2>10. Open Banking & API Access</h2>
+                        <p>With your explicit consent, SendNaw allows you to connect your account to third-party
+                            financial apps (e.g., budgeting tools or tax software). We use secure API tokens so that
+                            these apps never see your login password. You can revoke this access at any time through the
+                            <strong>"Connected Apps"</strong> section of your SendNaw dashboard.
+                        </p>
+                    </section>
+
+                    <section id="cookies-tech">
+                        <h2>11. Cookies & Tracking Technologies</h2>
+                        <p>We use "First-Party" cookies to keep you logged in and "Third-Party" cookies to analyze how
+                            you navigate our platform. This helps us identify if a specific feature is confusing for
+                            users.
+                            <br><br>
+                            <em>Note: We do not track your activity on non-SendNaw websites.</em>
+                        </p>
+                    </section>
+
+                    <section id="breach">
+                        <h2>12. Data Breach Notification</h2>
+                        <p>In the highly unlikely event of a security breach that compromises your personal data,
+                            SendNaw is committed to:
+                        <ul class="text-muted">
+                            <li>Notifying you via your registered email within <strong>72 hours</strong>.</li>
+                            <li>Providing a detailed report on what data was involved.</li>
+                            <li>Outlining the steps we have taken to secure the system and what steps you should take
+                                (such as changing your PIN).</li>
+                        </ul>
+                        </p>
+                    </section>
+
+                    <section id="modifications">
+                        <h2>13. Modifications to this Policy</h2>
+                        <p>Technology and regulations change fast. We reserve the right to update this policy. If the
+                            changes are "Material" (meaning they significantly change how we use your data), we will
+                            notify you via a pop-up in the SendNaw app 30 days before the changes take effect.</p>
+                    </section>
+
+                    <div class="mt-5 p-4 border rounded-4 bg-white d-inline-block shadow-sm">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <i class="bi bi-shield-check text-primary fs-1"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-bold">Verified Legal Document</p>
+                                <p class="small text-muted mb-0">Compliance ID: SN-2025-PRIV-001</p>
+                                <p class="small text-muted mb-0 text-uppercase"
+                                    style="font-size: 0.6rem; letter-spacing: 1px;">SendNaw Global Compliance Office</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div
+                style="background-color: #f2f4f7; padding: 20px 10px; font-family: 'Inter', system-ui, -apple-system, sans-serif; margin-top: 30px;">
+
+                <div
+                    style="background: white; max-width: 800px; margin: 0 auto; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #eaecf0; overflow: hidden;">
+
+                    <div
+                        style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f2f4f7;">
+                        <button onclick="this.parentElement.parentElement.parentElement.style.display='none'"
+                            style="border: none; background: #f2f4f7; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-x-lg" style="color: #667085;"></i>
+                        </button>
+                        <span
+                            style="font-size: 0.75rem; font-weight: 800; color: #98a2b3; letter-spacing: 1.5px; text-uppercase: uppercase;">SENDNAW
+                            LEGAL CENTER</span>
+                        <div style="width: 40px;"></div>
+                    </div>
+
+                    <div
+                        style="padding: 40px 30px; text-align: center; background: linear-gradient(to bottom, #ffffff, #fcfaff);">
+                        <h1
+                            style="font-weight: 800; font-size: 2.2rem; color: #101828; letter-spacing: -1.5px; margin-bottom: 8px;">
+                            Privacy & Cookies</h1>
+                        <p style="color: #667085; font-size: 0.95rem;">Last updated: December 25, 2025</p>
+                    </div>
+
+                    <div style="padding: 0 30px 40px 30px;">
+
+                        <div style="margin-bottom: 40px;">
+                            <h2
+                                style="font-size: 1.25rem; font-weight: 700; color: #101828; margin-bottom: 15px; display: flex; align-items: center;">
+                                <i class="bi bi-shield-lock-fill" style="color: #6f42c1; margin-right: 10px;"></i> 1.
+                                Privacy Policy
+                            </h2>
+                            <div
+                                style="background: #f9f5ff; border-left: 4px solid #6f42c1; padding: 15px; border-radius: 0 12px 12px 0; margin-bottom: 15px; font-size: 0.9rem; color: #6941c0;">
+                                <strong>Summary:</strong> We collect your ID (BVN/NIN) and transaction data to keep your
+                                account safe and legal.
+                            </div>
+                            <p style="color: #475467; line-height: 1.6; font-size: 1rem;">We use your personal data to
+                                verify your identity and prevent fraud. SendNaw does not sell your data to third-party
+                                advertisers. All data is encrypted using AES-256 bank-grade security protocols.</p>
+                        </div>
+
+                        <div style="margin-bottom: 40px; padding-top: 20px; border-top: 1px dashed #eaecf0;">
+                            <h2
+                                style="font-size: 1.25rem; font-weight: 700; color: #101828; margin-bottom: 15px; display: flex; align-items: center;">
+                                <i class="bi bi-cookie" style="color: #6f42c1; margin-right: 10px;"></i> 2. Cookie
+                                Settings
+                            </h2>
+                            <p style="color: #475467; line-height: 1.6; font-size: 1rem;">We use cookies to keep you
+                                logged in and to understand how you use our app. By continuing to use SendNaw, you agree
+                                to our use of:</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid #f2f4f7; border-radius: 12px;">
+                                    <div>
+                                        <span style="display: block; font-weight: 600; font-size: 0.9rem;">Essential
+                                            Cookies</span>
+                                        <span style="font-size: 0.75rem; color: #667085;">Required for the app to
+                                            function.</span>
+                                    </div>
+                                    <span style="color: #039855; font-size: 0.75rem; font-weight: 700;">ALWAYS
+                                        ACTIVE</span>
+                                </div>
+
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid #f2f4f7; border-radius: 12px;">
+                                    <div>
+                                        <span style="display: block; font-weight: 600; font-size: 0.9rem;">Analytics
+                                            Cookies</span>
+                                        <span style="font-size: 0.75rem; color: #667085;">Helps us improve the SendNaw
+                                            experience.</span>
+                                    </div>
+                                    <input type="checkbox" checked
+                                        style="accent-color: #6f42c1; width: 18px; height: 18px; cursor: pointer;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: #101828; border-radius: 16px; padding: 25px; color: white; text-align: center;">
+                            <h4 style="font-weight: 700; margin-bottom: 10px;">Legal Questions?</h4>
+                            <p style="font-size: 0.85rem; color: #98a2b3; margin-bottom: 20px;">Reach out to our global
+                                compliance team.</p>
+                            <a href="mailto:legal@sendnaw.com"
+                                style="color: #6f42c1; text-decoration: none; font-weight: 700; font-size: 0.9rem; background: white; padding: 8px 20px; border-radius: 50px;">legal@sendnaw.com</a>
+                        </div>
+
+                    </div>
+
+                    <div
+                        style="position: sticky; bottom: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); padding: 20px; border-top: 1px solid #eaecf0; text-align: center;">
+                        <button onclick="this.parentElement.parentElement.parentElement.style.display='none'"
+                            style="background: #6f42c1; color: white; border: none; padding: 14px 60px; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 14px rgba(111, 66, 193, 0.4);">
+                            I AGREE & CONTINUE
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <footer>
+        <p class="mt-5 text-center text-muted" style="font-size: 0.8rem;">
+            SendNaw is a registered trademark. &copy; 2025 All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        window.onscroll = function () { myFunction() };
+        function myFunction() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
+
+
+    </script>
+</body>
+
+</html>

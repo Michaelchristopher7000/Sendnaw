@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --brand-purple: #6f42c1;
+            --bg-light: #fcfcfd;
+            --text-dark: #101828;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Blur */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Typography Styles */
+        .legal-header {
+            padding: 80px 0;
+            background: white;
+            border-bottom: 1px solid #eaecf0;
+        }
+
+        .legal-section {
+            margin-bottom: 4rem;
+        }
+
+        .legal-section h2 {
+            font-weight: 700;
+            font-size: 1.75rem;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .legal-section h2 i {
+            margin-right: 12px;
+            color: var(--brand-purple);
+            font-size: 1.4rem;
+        }
+
+        .legal-section p {
+            color: #475467;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: #f9fafb;
+            border-left: 4px solid var(--brand-purple);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Sticky Nav */
+        .sticky-nav {
+            position: sticky;
+            top: 100px;
+        }
+
+        .nav-link-legal {
+            display: block;
+            padding: 10px 0;
+            color: #667085;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-link-legal:hover {
+            color: var(--brand-purple);
+        }
+
+        .nav-link-legal.active {
+            color: var(--brand-purple);
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar sticky-top glass-nav border-bottom">
+        <div class="container py-2">
+            <a href="./Index.html"
+                class="btn btn-link text-decoration-none text-dark fw-bold d-inline-flex align-items-center p-0">
+                <i class="bi bi-arrow-left me-2"></i> Back
+            </a>
+
+            <!-- <div style="width: 80px;"></div> -->
+        </div>
+    </nav>
+
+    <header class="legal-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="badge rounded-pill px-3 py-2 mb-3"
+                        style="background: #f4ebff; color: var(--brand-purple);">LEGAL FRAMEWORK v2.0</div>
+                    <h1 class="display-3 fw-bold mb-3" style="letter-spacing: -3px;">Terms & Conditions</h1>
+                    <p class="lead text-muted mb-4">These terms govern your use of the SendNaw platform. By using our
+                        services, you agree to these rules. We've simplified them so they are easy to understand.</p>
+                    <div class="d-flex align-items-center gap-4 text-muted small">
+                        <span><i class="bi bi-clock me-1"></i> Read time: 8 mins</span>
+                        <span><i class="bi bi-calendar-check me-1"></i> Effective: Dec 25, 2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-5 mt-4">
+        <div class="row g-5">
+            <aside class="col-lg-3 d-none d-lg-block">
+                <div class="sticky-nav">
+                    <h6 class="text-uppercase fw-bold small tracking-widest text-muted mb-4">Sections</h6>
+                    <a href="#acceptance" class="nav-link-legal">1. Acceptance of Terms</a>
+                    <a href="#eligibility" class="nav-link-legal">2. Eligibility</a>
+                    <a href="#account" class="nav-link-legal">3. Account Responsibility</a>
+                    <a href="#services" class="nav-link-legal">4. Transactions & Fees</a>
+                    <a href="#prohibited" class="nav-link-legal">5. Prohibited Use</a>
+                    <a href="#liability" class="nav-link-legal">6. Liability & Limits</a>
+                    <a href="#ip" class="nav-link-legal">7. Intellectual Property</a>
+                </div>
+            </aside>
+
+            <div class="col-lg-9">
+
+                <section id="acceptance" class="legal-section">
+                    <h2><i class="bi bi-check-all"></i> 1. Acceptance of Terms</h2>
+                    <div class="summary-box">
+                        <strong>The Short Version:</strong> By opening the SendNaw app, you're agreeing to play by our
+                        rules.
+                    </div>
+                    <p>By using SendNaw, you agree to comply with these Terms & Conditions, our Privacy Policy, and all
+                        applicable laws and regulations. If you do not agree, please do not use our services.</p>
+                </section>
+
+                <section id="eligibility" class="legal-section">
+                    <h2><i class="bi bi-person-badge"></i> 2. Eligibility</h2>
+                    <div class="summary-box">
+                        <strong>The Short Version:</strong> You must be 18+ and legally allowed to hold a bank account.
+                    </div>
+                    <p>You must be at least 18 years old to use SendNaw. By registering, you confirm that you are
+                        legally capable of entering into binding agreements and have not been previously suspended from
+                        our platform.</p>
+                </section>
+
+                <section id="account" class="legal-section">
+                    <h2><i class="bi bi-shield-lock"></i> 3. Account Responsibilities</h2>
+                    <div class="summary-box">
+                        <strong>The Short Version:</strong> Keep your PIN safe. If you give someone your phone, you are
+                        responsible for what they do.
+                    </div>
+                    <p>Users are responsible for maintaining the confidentiality of account login credentials. Any
+                        activity under your account is your responsibility. Notify us immediately if you suspect
+                        unauthorized access or if your device is stolen.</p>
+                </section>
+
+                <section id="services" class="legal-section">
+                    <h2><i class="bi bi-cash-stack"></i> 4. Services & Transactions</h2>
+                    <div class="summary-box">
+                        <strong>The Short Version:</strong> We process your money, but you must check the details before
+                        clicking "Send."
+                    </div>
+                    <p>SendNaw provides digital banking and savings services. All transactions are subject to
+                        verification and applicable fees. We strive to ensure accuracy, but users are responsible for
+                        reviewing transaction details—including recipient details—before confirmation.</p>
+                </section>
+
+                <section id="prohibited" class="legal-section">
+                    <h2><i class="bi bi-slash-circle"></i> 5. Prohibited Activities</h2>
+                    <p>To keep SendNaw safe for everyone, you may not use the platform for:
+                    <ul class="text-muted mt-3">
+                        <li class="mb-2">Money laundering or terrorist financing.</li>
+                        <li class="mb-2">Purchasing illegal goods or services.</li>
+                        <li class="mb-2">Attempting to hack or bypass our security protocols.</li>
+                    </ul>
+                    </p>
+                </section>
+
+                <div class="p-5 border-0 rounded-5 shadow-sm mt-5" style="background: #101828; color: white;">
+                    <h4 class="fw-bold mb-3 text-white">Need a PDF copy?</h4>
+                    <p class="text-secondary small mb-4">Download the full Terms & Conditions for your personal records.
+                    </p>
+                    <button class="btn btn-primary rounded-pill px-4 py-2"
+                        style="background: var(--brand-purple); border: none;">
+                        <i class="bi bi-download me-2"></i> Download Document
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-5 bg-white border-top mt-5">
+        <div class="container text-center">
+            <p class="fw-bold text-dark mb-1">SendNaw Global Finance</p>
+            <p class="text-muted small">Licensed by the Central Bank of Nigeria as a Payment Service Provider.</p>
+            <!-- <div class="mt-4 pt-4 border-top">
+                 <a href="privacy.html" class="text-muted text-decoration-none small mx-3">Privacy Policy</a>
+                <a href="terms.html" class="text-dark text-decoration-none small fw-bold mx-3">Terms of Use</a>
+                <a href="contact.html" class="text-muted text-decoration-none small mx-3">Support</a>
+            </div> -->
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

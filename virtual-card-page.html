@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons (swap icons easily) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- AOS link -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="./script.css">
+    <title>virtual cards</title>
+</head>
+
+<body style="font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #101828; padding-top: 90px;">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-white bg-opacity-75 border-bottom py-3"
+        style="backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.04);">
+        <div class="container">
+            <!-- logo anchor -->
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+                <img src="/images/SendNaw_logo_main-removebg-preview.png" alt="SendNaw" height="45">
+            </a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sendnawNav">
+                <span class="navbar-toggler-icon"></span>
+                <span class="visually-hidden">toggle icon</span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="sendnawNav">
+                <ul class="navbar-nav mx-auto align-items-center">
+
+                    <li class="nav-item dropdown position-static mx-lg-3">
+                        <a class="nav-link dropdown-toggle fw-semibold text-dark px-0" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                            onmouseover="this.style.borderBottomColor='#6f42c1'"
+                            onmouseout="this.style.borderBottomColor='transparent'">
+                            Products
+                        </a>
+                        <div class="dropdown-menu shadow-lg border-0 rounded-4 mt-2 p-4"
+                            style="width: 100%; max-width: 600px; left: 50%; transform: translateX(-50%);">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h6 class="text-uppercase small fw-bold text-primary mb-3"
+                                        style="letter-spacing: 1px;">Payments</h6>
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"><i
+                                                class="bi bi-send-fill"></i></div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Instant Transfers</div>
+                                            <small class="text-muted">Move money in seconds</small>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-success bg-opacity-10 p-2 rounded-3 text-success"><i
+                                                class="bi bi-phone-vibrate"></i></div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Phone Number Pay</div>
+                                            <small class="text-muted">No account number needed</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-uppercase small fw-bold text-warning mb-3"
+                                        style="letter-spacing: 1px;">Lifestyle</h6>
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-warning bg-opacity-10 p-2 rounded-3 text-warning"><i
+                                                class="bi bi-lightning-charge-fill"></i></div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Bills & Airtime</div>
+                                            <small class="text-muted">Utility payments made easy</small>
+                                        </div>
+                                    </a>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"
+                                            style="color: #6f42c1 !important; background-color: rgba(111, 66, 193, 0.1) !important;">
+                                            <i class="bi bi-credit-card-2-front-fill"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Virtual Cards</div>
+                                            <small class="text-muted">Shop globally with USD cards</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-uppercase small fw-bold text-danger mb-3"
+                                        style="letter-spacing: 1px;">Global Commerce</h6>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-danger bg-opacity-10 p-2 rounded-3 text-danger">
+                                            <i class="bi bi-globe2"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">USD Virtual Cards</div>
+                                            <small class="text-muted">Pay for Netflix, Amazon & Ads</small>
+                                        </div>
+                                    </a>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"
+                                            style="color: #6f42c1 !important; background-color: rgba(111, 66, 193, 0.1) !important;">
+                                            <i class="bi bi-cash-stack"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">Multi-Currency Wallets</div>
+                                            <small class="text-muted">Hold Naira, Dollars, and Pounds</small>
+                                        </div>
+                                    </a>
+
+                                    <a class="dropdown-item d-flex align-items-start gap-3 py-2 rounded-3" href="#">
+                                        <div class="bg-info bg-opacity-10 p-2 rounded-3 text-info">
+                                            <i class="bi bi-cart-check-fill"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">SendNaw Pay</div>
+                                            <small class="text-muted">One-click checkout for merchants</small>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle fw-semibold text-dark px-0" href="#" role="button"
+                            data-bs-toggle="dropdown"
+                            style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                            onmouseover="this.style.borderBottomColor='#6f42c1'"
+                            onmouseout="this.style.borderBottomColor='transparent'">
+                            Company
+                        </a>
+                        <div class="dropdown-menu shadow-lg border-0 rounded-4 p-2 mt-2" style="min-width: 200px;">
+                            <a class="dropdown-item py-2 rounded-2 fw-medium" href="./About.html">About Us</a>
+                            <a class="dropdown-item py-2 rounded-2 fw-medium" href="./Career.html">Careers</a>
+                            <a class="dropdown-item py-2 rounded-2 fw-medium" href="./Contact.html">Contact</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item mx-lg-3">
+                        <a class="nav-link fw-semibold text-dark px-0" href="./FAQ.html"
+                            style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                            onmouseover="this.style.borderBottomColor='#6f42c1'"
+                            onmouseout="this.style.borderBottomColor='transparent'">
+                            FAQ
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    <a href="./signin.html" class="nav-link fw-bold px-0 text-dark text-decoration-none"
+                        style="transition: border-color 0.3s ease; border-bottom: 2px solid transparent !important;"
+                        onmouseover="this.style.borderBottomColor='#6f42c1'"
+                        onmouseout="this.style.borderBottomColor='transparent'">
+                        Sign in
+                    </a>
+                    <a href="./signup.html" class="btn px-4 py-2 rounded-pill fw-bold shadow-sm border-0"
+                        style="background-color: #6f42c1; color: #fff;">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-5 overflow-hidden position-relative"
+        style="background: linear-gradient(180deg, #fdfbff 0%, #f4f0ff 100%);">
+        <div class="position-absolute"
+            style="width: 500px; height: 500px; background: rgba(111, 66, 193, 0.08); filter: blur(80px); top: -200px; right: -100px; z-index: 0;">
+        </div>
+
+        <div class="container position-relative py-5" style="z-index: 1;">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <span class="badge rounded-pill mb-3 px-3 py-2 text-primary shadow-sm"
+                        style="background: #ffffff; font-weight: 600;">
+                        <i class="bi bi-rocket-takeoff-fill text-danger"></i> NEW: PHYSICAL CARDS NOW AVAILABLE</span>
+                    <h1 class="display-3 fw-bolder mb-3" style="letter-spacing: -2px; line-height: 1.1;">
+                        The Card Built for <br><span style="color: #6f42c1;">Your Freedom.</span>
+                    </h1>
+                    <p class="lead text-muted mb-5" style="max-width: 500px;">
+                        Pay online, withdraw cash, and manage your spending globally with the SendNaw Mastercard.
+                        Seamless, secure, and stylish.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                        <a href="#request-form" class="btn btn-dark rounded-pill px-5 py-3 fw-bold shadow-lg"
+                            style="background: #6f42c1; border: none;">Get Yours Now</a>
+                        <a href="#" class="btn btn-outline-dark rounded-pill px-5 py-3 fw-bold">View Fees</a>
+                    </div>
+                </div>
+
+                <div class="position-relative d-flex justify-content-center py-5">
+                    <div class="shadow-lg rounded-4 p-4 text-white position-relative overflow-hidden"
+                        style="width: 380px; height: 230px; background: linear-gradient(135deg, #2D1B4E 0%, #101828 100%); border: 1px solid rgba(255,255,255,0.15); transform: rotate(-2deg); z-index: 2;">
+
+                        <div class="position-absolute"
+                            style="top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); z-index: -1;">
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+                            <span class="fw-bold small tracking-widest text-uppercase opacity-75"
+                                style="letter-spacing: 2px;">SendNaw Platinum</span>
+                            <i class="bi bi-wifi fs-4 opacity-50" style="transform: rotate(90deg);"></i>
+                        </div>
+
+                        <div class="mb-4">
+                            <div
+                                style="width: 48px; height: 36px; background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%); border-radius: 6px; position: relative; border: 1px solid rgba(0,0,0,0.1);">
+                                <div
+                                    style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(0,0,0,0.1);">
+                                </div>
+                                <div
+                                    style="position: absolute; left: 50%; top: 0; width: 1px; height: 100%; background: rgba(0,0,0,0.1);">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-end mt-4">
+                            <div>
+                                <div class="fw-mono small mb-1" style="letter-spacing: 2px; font-family: monospace;">
+                                    **** **** **** 2025</div>
+                                <div class="small text-uppercase tracking-wider"
+                                    style="font-size: 0.75rem; font-weight: 600; opacity: 0.9;">CHAMBERLAIN NWOKE</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="d-flex">
+                                    <div class="rounded-circle"
+                                        style="width: 30px; height: 30px; background: #eb001b; margin-right: -12px;">
+                                    </div>
+                                    <div class="rounded-circle"
+                                        style="width: 30px; height: 30px; background: #ff5f00; opacity: 0.85;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="position-absolute rounded-circle"
+                        style="width: 250px; height: 250px; background: #6f42c1; filter: blur(80px); opacity: 0.25; z-index: 1; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    </div>
+                </div>
+    </header>
+
+    <section class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-4 border-0 rounded-5 h-100 transition-up"
+                        style="background: #fcfcfd; border: 1px solid #f2f4f7 !important;">
+                        <div class="mb-4 d-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background: #f4ebff; color: #6f42c1;">
+                            <i class="bi bi-lightning-fill"></i>
+                        </div>
+                        <h5 class="fw-bold">Instant Activation</h5>
+                        <p class="text-muted small lh-lg">Request a virtual card and start shopping online in under 60
+                            seconds. No paperwork required.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 border-0 rounded-5 h-100"
+                        style="background: #fcfcfd; border: 1px solid #f2f4f7 !important;">
+                        <div class="mb-4 d-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background: #e0f2fe; color: #0ea5e9;">
+                            <i class="bi bi-lock-fill"></i>
+                        </div>
+                        <h5 class="fw-bold">Dynamic Security</h5>
+                        <p class="text-muted small lh-lg">Freeze your card instantly from the app if it’s misplaced.
+                            Real-time alerts for every kobo spent.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 border-0 rounded-5 h-100"
+                        style="background: #fcfcfd; border: 1px solid #f2f4f7 !important;">
+                        <div class="mb-4 d-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background: #ecfdf5; color: #10b981;">
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        <h5 class="fw-bold">Zero Global Markups</h5>
+                        <p class="text-muted small lh-lg">Spend anywhere in the world at the mid-market exchange rate.
+                            No hidden foreign transaction fees.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light position-relative" id="request-form">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 bg-white rounded-5 shadow-lg overflow-hidden border-0">
+                    <div class="row">
+                        <div class="col-lg-6 p-5">
+                            <h3 class="fw-bolder mb-2" style="letter-spacing: -1px;">Card Details</h3>
+                            <p class="text-muted small mb-4">Complete your request and get your card delivered.</p>
+
+                            <form>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-muted">LEGAL FULL NAME</label>
+                                    <input type="text"
+                                        class="form-control form-control-lg border-light bg-light rounded-3 shadow-none fw-bold"
+                                        placeholder="John Doe" style="font-size: 0.9rem;">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label small fw-bold text-muted">PHONE</label>
+                                        <input type="text"
+                                            class="form-control form-control-lg border-light bg-light rounded-3 shadow-none"
+                                            placeholder="+234...">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label small fw-bold text-muted">CARD TYPE</label>
+                                        <select
+                                            class="form-select form-select-lg border-light bg-light rounded-3 shadow-none">
+                                            <option>Virtual</option>
+                                            <option>Physical</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold text-muted">DELIVERY ADDRESS (For
+                                        Physical)</label>
+                                    <textarea class="form-control border-light bg-light rounded-3 shadow-none" rows="2"
+                                        placeholder="Where should we send it?"></textarea>
+                                </div>
+                                <button type="submit" id="confirmBtn"
+                                    class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg"
+                                    style="background: #6f42c1; border: none; letter-spacing: 1px;">
+                                    <span id="btnText">CONFIRM REQUEST</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-6 bg-dark d-none d-lg-flex align-items-center justify-content-center text-center p-5"
+                            style="background: linear-gradient(135deg, #6f42c1 0%, #3a1c71 100%) !important;">
+                            <div>
+                                <i class="bi bi-credit-card-2-front text-white opacity-25 display-1 mb-4"></i>
+                                <h4 class="text-white fw-bold">Ready to use?</h4>
+                                <p class="text-white opacity-75 small">Your virtual card details will be <br>available
+                                    in the "Cards" tab immediately <br>after submission.</p>
+                                <div class="mt-4 pt-4 border-top border-white border-opacity-10">
+                                    <img src="https://www.sendnaw.com/logo-white.png" height="30" alt="SendNaw"
+                                        class="opacity-50">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h3 class="fw-bold text-center mb-4">Frequently Asked Questions</h3>
+            <div class="accordion accordion-flush" id="cardFAQ">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq1">
+                            How long does delivery take for physical cards?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#cardFAQ">
+                        <div class="accordion-body text-muted small">
+                            Physical cards are usually delivered within 5–7 business days depending on your location.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq2">
+                            Is my card secure?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#cardFAQ">
+                        <div class="accordion-body text-muted small">
+                            Yes, all card transactions are fully encrypted and monitored for fraud protection.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3"
+        style="z-index: 2000; width: 90%; max-width: 400px;">
+        <div id="successToast" class="toast align-items-center text-white border-0 rounded-4 shadow-lg" role="alert"
+            aria-live="assertive" aria-atomic="true" style="background: #101828;">
+            <div class="d-flex p-2">
+                <div class="toast-body d-flex align-items-center">
+                    <div class="bg-success rounded-circle p-2 me-3 d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;">
+                        <i class="bi bi-check2 text-white fs-4"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Request Successful</h6>
+                        <small class="opacity-75">Your SendNaw card is on the way!</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+  <!-- footer -->
+    <footer class="pt-5 pb-4 bg-dark">
+        <div class="container text-white">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4">
+                    <!-- logo anchor -->
+                    <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+                        <img src="/images/SendNaw_logo_main-removebg-preview.png" alt="SendNaw" height="45">
+                    </a>
+                    <p class="small pe-lg-5 text-white-50 pt-5">
+                        SendNaw is a modern financial platform providing seamless banking, payments, and lifestyle
+                        services for the digital age.
+                    </p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-white opacity-50 text-decoration-none"><i
+                                class="bi bi-twitter-x fs-4"></i></a>
+                        <a href="https://www.instagram.com/joinsendnaw?igsh=MW5tb2Y4Mjd3ZnlhbA=="
+                            class="text-white opacity-50 text-decoration-none"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white opacity-50 text-decoration-none"><i
+                                class="bi bi-facebook fs-4"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="fw-bold mb-4 text-uppercase small" style="letter-spacing: 1px;">Products</h6>
+                    <ul class="list-unstyled d-grid gap-3">
+                        <li><a href="#" class="text-white-50 small text-decoration-none link-light">Personal Account</a>
+                        </li>
+                        <li><a href="./virtual-card-page.html"
+                                class="text-white-50 small text-decoration-none link-light">SendNaw Cards</a>
+                        </li>
+                        <li><a href="#" class="text-white-50 small text-decoration-none link-light">Bill Payments</a>
+                        </li>
+                        <li><a href="./Savings-page.html"
+                                class="text-white-50 small text-decoration-none link-light">Savings</a></li>
+                        <li><a href="./Savings-page.html"
+                                class="text-white-50 small text-decoration-none link-light">Loan</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="fw-bold mb-4 text-uppercase small" style="letter-spacing: 1px;">Company</h6>
+                    <ul class="list-unstyled d-grid gap-3">
+                        <li><a href="./About.html" class="text-white-50 small text-decoration-none link-light">About
+                                Us</a></li>
+                        <li><a href="./Career.html"
+                                class="text-white-50 small text-decoration-none link-light">Careers</a></li>
+                        <li><a href="./Contact.html" class="text-white-50 small text-decoration-none link-light">Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small" style="letter-spacing: 1px;">Regulatory Information
+                    </h6>
+                    <p class="text-white-50 small mb-4 lh-lg">
+                        SendNaw is a financial technology company, not a bank. Banking services are provided by our
+                        licensed partner banks. All deposits are insured by the NDIC.
+                    </p>
+                    <div class="p-3 rounded-3 bg-white bg-opacity-10">
+                        <p class="small text-white mb-0 fw-bold">Verified Provider</p>
+                        <p class="text-white-50 mb-0" style="font-size: 11px;">CBN Licensed | NDIC Insured</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary opacity-25 my-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="text-white-50 small mb-0">&copy; 2025 SendNaw Technologies Limited. RC: 1234567</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end gap-3">
+                        <a href="./privacy-policy.html"
+                            class="text-white-50 small text-decoration-none link-light">Privacy.</a>
+                        <a href="./terms-condition.html"
+                            class="text-white-50 small text-decoration-none link-light">Terms and Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- AOS JS LINK -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            delay: 900
+        });
+
+        document.getElementById('confirmBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const btn = e.currentTarget;
+            const btnText = document.getElementById('btnText');
+            const toastEl = document.getElementById('successToast');
+            const toast = new bootstrap.Toast(toastEl, { delay: 4000 }); // Visible for 4 seconds
+
+            // 1. Show Processing State
+            btn.disabled = true;
+            btnText.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> PROCESSING...`;
+
+            // 2. Simulate Delay (1.5 seconds)
+            setTimeout(() => {
+                // 3. Reset Button State
+                btn.disabled = false;
+                btnText.innerHTML = "CONFIRM REQUEST";
+
+                // 4. Trigger Mobile-Optimized Popup
+                toast.show();
+
+                // Optional: Vibration for mobile support
+                if (navigator.vibrate) {
+                    navigator.vibrate(200);
+                }
+            }, 1500);
+        });
+
+    </script>
+
+    <!-- Bootsrap js link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

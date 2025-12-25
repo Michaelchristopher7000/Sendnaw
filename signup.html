@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Profile</title>
+
+    <!-- Google Fonts Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bs-primary: #6f42c1;
+            --bs-primary-rgb: 111, 66, 193;
+            --bs-link-color: #6f42c1;
+            --bs-link-hover-color: #520dc2;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .btn-sn {
+            background-color: #6f42c1;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-sn:hover {
+            background-color: #520dc2;
+            color: #fff;
+        }
+
+        .stepper-line {
+            width: 2px;
+            height: 40px;
+            background-color: #dee2e6;
+            margin-left: 15px;
+        }
+
+        .stepper-line.active {
+            background-color: #6f42c1;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            background: #fff;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            height: 200px;
+            /* taller container */
+        }
+
+        .toast-sn {
+            background-color: #6f42c1;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-transparent py-3 px-md-5">
+        <div class="container-fluid">
+            <!-- logo anchor -->
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+                <img src="/images/SendNaw_logo_main-removebg-preview.png" alt="SendNaw" height="45">
+            </a>
+
+            <div class="ms-auto">
+                <span class="text-muted d-none d-md-inline">Already have an account?</span>
+                <a href="./signin.html" class="btn btn-link text-sn-primary fw-bold text-decoration-none ms-2">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        <div class="row justify-content-center min-vh-75">
+            <!-- Left Info Column -->
+            <div class="col-lg-6 d-flex flex-column justify-content-between mb-5 mb-lg-0">
+                <div id="welcome-text">
+                    <h1 class="display-4 fw-bold mb-3">Welcome to SendNaw!</h1>
+                    <p class="lead text-secondary w-75">
+                        Collect payments, access loans, and manage your business effortlessly with SendNaw.
+                    </p>
+                </div>
+                <div id="side-stepper" class="d-none mt-4">
+                    <h2 class="fw-bold h5 mb-3">Setup Your Profile</h2>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-check-circle-fill text-success fs-4"></i>
+                        <div class="ms-3 lh-sm">
+                            <small class="fw-bold d-block">STEP 1</small>
+                            <small class="text-muted">Phone Number</small>
+                        </div>
+                    </div>
+                    <div class="stepper-line active"></div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <i id="step2-icon" class="bi bi-record-circle-fill text-sn-primary fs-4"></i>
+                        <div class="ms-3 lh-sm">
+                            <small class="fw-bold d-block">STEP 2</small>
+                            <small class="text-muted">Consent Request</small>
+                        </div>
+                    </div>
+                    <div id="line-2" class="stepper-line"></div>
+
+                    <div class="d-flex align-items-center">
+                        <i id="step3-icon" class="bi bi-circle text-muted fs-4"></i>
+                        <div class="ms-3 lh-sm">
+                            <small class="fw-bold d-block text-muted">STEP 3</small>
+                            <small class="text-muted">Verification</small>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="mt-auto">
+                    <p class="small text-muted mb-1">SendNaw is licensed by the <strong>Central Bank of
+                            Nigeria</strong>.</p>
+                    <p class="small text-muted">All deposits are insured by the <strong>NDIC</strong>.</p>
+                </footer>
+            </div>
+
+            <!-- Right Form Column -->
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-lg rounded-4 p-4 bg-white">
+
+                    <!-- Step 1 -->
+                    <div id="step-1-card">
+                        <h2 class="fw-bold mb-2">Setup Your Profile</h2>
+                        <p class="text-muted mb-4">Enter your phone number to get started</p>
+                        <div class="row g-2 mb-4">
+                            <div class="col-4">
+                                <!-- <label for="country">Country</label> -->
+                                <select required class="form-select py-3 fw-bold">
+                                    <option value="">Select country</option>
+                                    <option value="ng">Nigeria</option>
+                                    <option value="ke">Kenya</option>
+                                    <option value="gh">Ghana</option>
+                                    <option value="usa">United of America</option>
+                                    <option value="Uk">United Kingdom</option>
+                                </select>
+                            </div>
+                            <div class="col-8">
+                                <input type="tel" id="phoneInput" class="form-control py-3 px-3"
+                                    placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <button id="step1-btn" class="btn btn-sn w-100 py-3 fw-bold rounded-3">Continue</button>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="step-2-card" class="d-none">
+                        <button onclick="goToStep(1)"
+                            class="btn btn-link text-sn-primary p-0 mb-3 text text-decoration-none">
+                            <i class="bi bi-chevron-left"></i> Go back
+                        </button>
+                        <h2 class="fw-bold mb-3">Consent Request</h2>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="c1">
+                            <label class="form-check-label small text-muted" for="c1">
+                                I agree to <a href="#" class="text-info fw-bold text-decoration-none">Terms &
+                                    Conditions</a>
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="c2">
+                            <label class="form-check-label small text-muted" for="c2">
+                                I agree to <a href="#" class="text-info fw-bold text-decoration-none">Data Privacy
+                                    Statement</a>
+                            </label>
+                        </div>
+                        <button id="step2-btn" class="btn btn-sn w-100 py-3 fw-bold rounded-3">Continue</button>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="step-3-card" class="d-none">
+                        <button onclick="goToStep(2)"
+                            class="btn btn-link text-sn-primary p-0 mb-3 text-decoration-none">
+                            <i class="bi bi-chevron-left"></i> Go back
+                        </button>
+                        <h2 class="fw-bold mb-3">Verify Phone Number</h2>
+                        <p class="text-muted mb-4">Enter the 6-digit code sent via SMS.</p>
+                        <div class="d-flex justify-content-between mb-4">
+                            <input type="text" placeholder="0" class="otp-input" maxlength="1">
+                            <input type="text" placeholder="0" class="otp-input" maxlength="1">
+                            <input type="text" placeholder="0" class="otp-input" maxlength="1">
+                            <input type="text" placeholder="0" class="otp-input" maxlength="1">
+                            <input type="text" placeholder="0" class="otp-input" maxlength="1">
+                            <input type="text" placeholder="0" class="otp-input" maxlength="1">
+                        </div>
+                        <button id="step3-btn" class="btn btn-sn w-100 py-3 fw-bold rounded-3">Continue</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple step navigation
+        function goToStep(step) {
+            document.querySelectorAll('#step-1-card, #step-2-card, #step-3-card').forEach(c => c.classList.add('d-none'));
+            document.getElementById('welcome-text').classList.add('d-none');
+            document.getElementById('side-stepper').classList.remove('d-none');
+
+            if (step === 1) document.getElementById('step-1-card').classList.remove('d-none');
+            if (step === 2) document.getElementById('step-2-card').classList.remove('d-none');
+            if (step === 3) document.getElementById('step-3-card').classList.remove('d-none');
+        }
+
+        // Toast function
+        function showToast(message) {
+            const container = document.querySelector('.toast-container');
+            const toastEl = document.createElement('div');
+            toastEl.className = 'toast toast-sn align-items-center mb-2';
+            toastEl.setAttribute('role', 'alert');
+            toastEl.innerHTML = `<div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>`;
+            container.appendChild(toastEl);
+            new bootstrap.Toast(toastEl, { delay: 3000 }).show();
+        }
+
+        // Step 1 validation
+        document.getElementById('step1-btn').addEventListener('click', () => {
+            const phone = document.getElementById('phoneInput').value.trim();
+            if (phone.length < 10) return showToast("Please enter a valid phone number");
+            goToStep(2);
+        });
+
+        // Step 2 validation
+        document.getElementById('step2-btn').addEventListener('click', () => {
+            const c1 = document.getElementById('c1').checked;
+            const c2 = document.getElementById('c2').checked;
+            if (!c1 || !c2) return showToast("Please agree to the required consents");
+            goToStep(3);
+        });
+        document.getElementById('step3-btn').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+    </script>
+</body>
+
+</html>

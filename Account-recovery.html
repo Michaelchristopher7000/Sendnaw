@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account recovery</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bs-primary: #6f42c1;
+            --bs-primary-rgb: 111, 66, 193;
+            --bs-link-color: #6f42c1;
+            --bs-link-hover-color: #520dc2;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #6f42c1;
+            padding-top: 80px;
+        }
+
+        .auth-card {
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, .15);
+            border: none;
+        }
+
+        .nav-pills {
+            background: #f1f3f9;
+            border-radius: 999px;
+            padding: 4px;
+        }
+
+        .nav-pills .nav-link {
+            border-radius: 999px;
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--bs-primary);
+            color: #fff;
+        }
+
+        .form-label {
+            font-size: .75rem;
+            letter-spacing: .08em;
+            font-weight: 700;
+            color: #6c757d;
+        }
+
+        .input-group {
+            background: #f8f9fc;
+            border-radius: 14px;
+            padding: 6px;
+        }
+
+        .input-group .form-control {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+        }
+
+        .input-group .form-control:focus {
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6f42c1, #8f6cf6);
+            border: none;
+            font-weight: 600;
+            border-radius: 999px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a34a5, #7b5ce0);
+        }
+
+        .lock {
+            width: 50px;
+            height: 50px;
+            background-color: var(--bs-primary);
+        }
+
+        .popup {
+            z-index: 1055;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+
+                <!-- Back Home -->
+                <div class="mb-4">
+                    <a href="index.html" class="text-white text-decoration-none fw-bold">
+                        &larr; Back to Home
+                    </a>
+                </div>
+
+                <!-- Forgot Password Card -->
+                <div class="card border-0 rounded-5 shadow-lg">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+                            <div
+                                class="lock d-inline-flex align-items-center justify-content-center rounded-4 shadow-sm mb-3">
+                                <i class="bi bi-lock-fill text-white fs-4"></i>
+                            </div>
+                            <h2 class="h4 fw-bold text-dark mb-1">Forgot Password?</h2>
+                            <p class="text-muted small">Enter your email or phone number to reset your password</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-muted">Email or Phone</label>
+                            <input type="text" class="form-control border-0 bg-light py-3 rounded-3 shadow-none"
+                                placeholder="you@example.com or +234 000 000 0000">
+                        </div>
+
+
+                        <div class="popup position-fixed bottom-0 end-0 p-3">
+                            <div id="resetToast" class="toast align-items-center text-white bg-success border-0"
+                                role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex">
+                                    <div class="toast-body text-light">
+                                         a reset email has been sent!
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                        data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm mb-4 text-light"
+                            id="resetBtn">
+                            Reset Password
+                        </button>
+
+                        <div class="text-center">
+                            <p class="small text-secondary mb-0">
+                                Remembered your password?
+                                <a href="signin.html" class="text-decoration-none fw-bold nav-link text-primary">Log
+                                    In</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const resetBtn = document.querySelector("#resetBtn");
+            const inputs = document.querySelectorAll("input");
+            const toastEl = document.querySelector("#resetToast");
+            const toast = new bootstrap.Toast(toastEl);
+
+            // Enable the button only if inputs have value
+            const validateInputs = () => {
+                const isValid = [...inputs].every(input => input.value.trim() !== "");
+                resetBtn.disabled = !isValid;
+            };
+
+            inputs.forEach(input => input.addEventListener("input", validateInputs));
+
+            resetBtn.addEventListener("click", () => {
+                // Show loading state
+                resetBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Sending Reset...`;
+                resetBtn.disabled = true;
+
+                // Simulate server delay
+                setTimeout(() => {
+                    resetBtn.innerHTML = `Reset Password`;
+                    resetBtn.disabled = false;
+
+                    // Show toast popup
+                    toast.show();
+                }, 2000);
+            });
+
+        });
+    </script>
+
+
+</body>
+
+</html>
