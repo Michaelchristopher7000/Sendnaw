@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import AOS from "aos";
 import { useEffect } from "react";
 import "aos/dist/aos.css";
@@ -54,8 +54,8 @@ import Converts from "./pages/dashboard/convert";
 import ThemeProvider from "./context/themecontext";
 
 // Admin pages (single component that handles all tabs)
-import AdminDashboard from "./pages/admin/dashboard";
-import AdminLayout from "./pages/admin/AdminLayout";
+// import AdminDashboard from "./pages/admin/dashboard";
+// import AdminLayout from "./pages/admin/AdminLayout";
 
 // If you prefer separate components for each tab, uncomment the lines below
 // import Withdrawals from "./pages/admin/Withdrawals";
@@ -138,20 +138,20 @@ function App() {
           </Route>
 
           {/* Admin Routes - Protected (admin) */}
-          <Route path="/admin" element={<AdminLayout />}>
+          {/* <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="/admin/users" replace />} />
             <Route
               path="dashboard"
               element={<Navigate to="/admin/users" replace />}
             />{" "}
             {/* ← add this line */}
-            <Route path="users" element={<AdminDashboard />} />
+            {/* <Route path="users" element={<AdminDashboard />} />
             <Route path="kyc" element={<AdminDashboard />} />
             <Route path="loans" element={<AdminDashboard />} />
             <Route path="withdrawals" element={<AdminDashboard />} />
             <Route path="liquidations" element={<AdminDashboard />} />
-            <Route path="tier-requests" element={<AdminDashboard />} />
-          </Route>
+            <Route path="tier-requests" element={<AdminDashboard />} /> */}
+          {/* </Route> */} 
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
