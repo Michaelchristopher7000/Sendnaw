@@ -8,7 +8,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://sendnawtechnologies.infinityfree.io',
+        target: 'https://sendnawtechnologies.infinityfree.io',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
