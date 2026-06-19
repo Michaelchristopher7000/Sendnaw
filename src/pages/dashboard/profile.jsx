@@ -92,7 +92,7 @@ export default function Profile() {
       const token = localStorage.getItem("token");
       if (!token) return;
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/auth/get_user.php",
+        "https://sendnawtechnologies.infinityfree.io/api/auth/get_user.php",
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -142,7 +142,7 @@ export default function Profile() {
   const fetchLimits = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/user/limit.php",
+        "https://sendnawtechnologies.infinityfree.io/api/user/limit.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -163,7 +163,7 @@ export default function Profile() {
     formData.append("avatar", file);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/profiles/upload_avatar.php",
+        "https://sendnawtechnologies.infinityfree.io/api/profiles/upload_avatar.php",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

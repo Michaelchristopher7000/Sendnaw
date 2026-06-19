@@ -596,7 +596,7 @@ export default function VirtualCard() {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/cards/details.php",
+        "https://sendnawtechnologies.infinityfree.io/api/cards/details.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -620,7 +620,7 @@ export default function VirtualCard() {
   const createCard = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/cards/create.php",
+        "https://sendnawtechnologies.infinityfree.io/api/cards/create.php",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -645,7 +645,7 @@ export default function VirtualCard() {
     setFunding(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/cards/fund.php",
+        "https://sendnawtechnologies.infinityfree.io/api/cards/fund.php",
         {
           method: "POST",
           headers: {

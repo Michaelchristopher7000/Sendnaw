@@ -83,7 +83,7 @@ export default function TransactionHistory() {
       const params = new URLSearchParams(filters);
       params.append("limit", 100);
       const res = await fetch(
-        `http://sendnawtechnologies.infinityfree.io/api/transactions/history.php?${params}`,
+        `https://sendnawtechnologies.infinityfree.io/api/transactions/history.php?${params}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -105,7 +105,7 @@ export default function TransactionHistory() {
 
   const exportCSV = () => {
     const params = new URLSearchParams(filters);
-    window.location.href = `http://sendnawtechnologies.infinityfree.io/api/transactions/export_csv.php?${params}&token=${localStorage.getItem("token")}`;
+    window.location.href = `https://sendnawtechnologies.infinityfree.io/api/transactions/export_csv.php?${params}&token=${localStorage.getItem("token")}`;
   };
 
   useEffect(() => {

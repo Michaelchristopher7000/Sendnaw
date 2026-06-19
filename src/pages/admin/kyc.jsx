@@ -11,7 +11,7 @@ export default function KycReview() {
   const fetchPending = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/admin/get_kyc_pending.php",
+        "https://sendnawtechnologies.infinityfree.io/api/admin/get_kyc_pending.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -30,7 +30,7 @@ export default function KycReview() {
       action === "approve" ? "approve_kyc.php" : "reject_kyc.php";
     try {
       const res = await fetch(
-        `http://sendnawtechnologies.infinityfree.io/api/admin/${endpoint}`,
+        `https://sendnawtechnologies.infinityfree.io/api/admin/${endpoint}`,
         {
           method: "POST",
           headers: {
@@ -79,7 +79,7 @@ export default function KycReview() {
                 <li key={idx}>
                   {doc.document_type} –{" "}
                   <a
-                    href={`http://sendnawtechnologies.infinityfree.io/${doc.file_path}`}
+                    href={`https://sendnawtechnologies.infinityfree.io/${doc.file_path}`}
                     target="_blank"
                     rel="noreferrer"
                   >

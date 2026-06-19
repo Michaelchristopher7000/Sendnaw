@@ -695,7 +695,7 @@ export default function Layout() {
   // Deposit handler
   const handleDeposit = async (amount) => {
     const res = await fetch(
-      "http://sendnawtechnologies.infinityfree.io/api/deposit/initialized.php",
+      "https://sendnawtechnologies.infinityfree.io/api/deposit/initialized.php",
       {
         method: "POST",
         headers: {

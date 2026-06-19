@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = useCallback(async (authToken) => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/auth/get_user.php",
+        "https://sendnawtechnologies.infinityfree.io/api/auth/get_user.php",
         {
           headers: { Authorization: `Bearer ${authToken}` },
         },

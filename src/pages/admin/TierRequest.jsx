@@ -9,7 +9,7 @@ export default function TierRequests() {
 
   const fetchRequests = async () => {
     const res = await fetch(
-      "http://sendnawtechnologies.infinityfree.io/api/admin/get_tier_requests.php",
+      "https://sendnawtechnologies.infinityfree.io/api/admin/get_tier_requests.php",
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       },
@@ -20,7 +20,7 @@ export default function TierRequests() {
 
   const handleAction = async (requestId, action) => {
     const res = await fetch(
-      "http://sendnawtechnologies.infinityfree.io/api/admin/approve_upgrade.php",
+      "https://sendnawtechnologies.infinityfree.io/api/admin/approve_upgrade.php",
       {
         method: "POST",
         headers: {

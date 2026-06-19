@@ -424,7 +424,7 @@ export default function Withdraw() {
     setMessage({ text: "", type: "" });
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/withdraw/request.php",
+        "https://sendnawtechnologies.infinityfree.io/api/withdraw/request.php",
         {
           method: "POST",
           headers: {

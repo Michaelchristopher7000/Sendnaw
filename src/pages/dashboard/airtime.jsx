@@ -16,7 +16,7 @@ if (
   document.head.appendChild(link);
 }
 
-const API = "http://sendnawtechnologies.infinityfree.io/api/bills";
+const API = "https://sendnawtechnologies.infinityfree.io/api/bills";
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -222,7 +222,7 @@ export default function Airtime() {
 
   useEffect(() => {
     fetch(
-      "http://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
+      "https://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
       { headers: auth() },
     )
       .then((r) => r.json())
@@ -262,7 +262,7 @@ export default function Airtime() {
     if (!selectedProvider || !meta) return;
     try {
       await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
+        "https://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json", ...auth() },
@@ -274,7 +274,7 @@ export default function Airtime() {
         },
       );
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
+        "https://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
         { headers: auth() },
       );
       const data = await res.json();

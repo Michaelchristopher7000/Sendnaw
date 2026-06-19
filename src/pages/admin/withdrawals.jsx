@@ -11,7 +11,7 @@ export default function Withdrawals() {
   const fetchWithdrawals = async () => {
     try {
       const res = await fetch(
-        `http://sendnawtechnologies.infinityfree.io/api/admin/get_withdrawals.php?status=${filter}`,
+        `https://sendnawtechnologies.infinityfree.io/api/admin/get_withdrawals.php?status=${filter}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -29,7 +29,7 @@ export default function Withdrawals() {
       action === "approve" ? "approve_withdrawal.php" : "reject_withdrawal.php";
     try {
       const res = await fetch(
-        `http://sendnawtechnologies.infinityfree.io/api/admin/${endpoint}`,
+        `https://sendnawtechnologies.infinityfree.io/api/admin/${endpoint}`,
         {
           method: "POST",
           headers: {

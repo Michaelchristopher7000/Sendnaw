@@ -649,7 +649,7 @@ export default function Loans() {
   const fetchProducts = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/loan/products.php",
+        "https://sendnawtechnologies.infinityfree.io/api/loan/products.php",
       );
       const data = await res.json();
       if (data.success) setProducts(data.products);
@@ -660,7 +660,7 @@ export default function Loans() {
   const fetchMyLoans = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/loan/my_loans.php",
+        "https://sendnawtechnologies.infinityfree.io/api/loan/my_loans.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -677,7 +677,7 @@ export default function Loans() {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/loan/apply.php",
+        "https://sendnawtechnologies.infinityfree.io/api/loan/apply.php",
         {
           method: "POST",
           headers: {
@@ -707,7 +707,7 @@ export default function Loans() {
   const repayLoan = async (loanId, amount) => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/loan/repay.php",
+        "https://sendnawtechnologies.infinityfree.io/api/loan/repay.php",
         {
           method: "POST",
           headers: {

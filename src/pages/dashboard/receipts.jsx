@@ -49,7 +49,7 @@ export default function Receipt() {
       }
       try {
         const res = await fetch(
-          `http://sendnawtechnologies.infinityfree.io/api/transactions/get_receipt_data.php?txn_id=${id}&token=${token}`,
+          `https://sendnawtechnologies.infinityfree.io/api/transactions/get_receipt_data.php?txn_id=${id}&token=${token}`,
           { headers: { Authorization: `Bearer ${token}` } },
         );
         const data = await res.json();
@@ -73,7 +73,7 @@ export default function Receipt() {
   const downloadPDF = () => {
     const token = localStorage.getItem("token");
     window.open(
-      `http://sendnawtechnologies.infinityfree.io/api/transactions/receipt.php?txn_id=${id}&token=${token}`,
+      `https://sendnawtechnologies.infinityfree.io/api/transactions/receipt.php?txn_id=${id}&token=${token}`,
       "_blank",
     );
   };

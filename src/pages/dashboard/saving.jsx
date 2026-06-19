@@ -432,7 +432,7 @@ function CreateSavingModal({ plans, onClose, onCreated, colors }) {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/savings/create.php",
+        "https://sendnawtechnologies.infinityfree.io/api/savings/create.php",
         {
           method: "POST",
           headers: {
@@ -824,7 +824,7 @@ export default function Savings() {
   const fetchPlans = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/savings/plans.php",
+        "https://sendnawtechnologies.infinityfree.io/api/savings/plans.php",
       );
       const data = await res.json();
       if (data.success) setPlans(data.plans);
@@ -835,7 +835,7 @@ export default function Savings() {
   const fetchMySavings = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/savings/list.php",
+        "https://sendnawtechnologies.infinityfree.io/api/savings/list.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -851,7 +851,7 @@ export default function Savings() {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/savings/withdraw.php",
+        "https://sendnawtechnologies.infinityfree.io/api/savings/withdraw.php",
         {
           method: "POST",
           headers: {
@@ -880,7 +880,7 @@ export default function Savings() {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/savings/liquidate.php",
+        "https://sendnawtechnologies.infinityfree.io/api/savings/liquidate.php",
         {
           method: "POST",
           headers: {

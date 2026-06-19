@@ -86,7 +86,7 @@ export default function Settings() {
     e.preventDefault();
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/settings/update_profile.php",
+        "https://sendnawtechnologies.infinityfree.io/api/settings/update_profile.php",
         {
           method: "POST",
           headers: {
@@ -117,7 +117,7 @@ export default function Settings() {
     }
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/settings/change_password.php",
+        "https://sendnawtechnologies.infinityfree.io/api/settings/change_password.php",
         {
           method: "POST",
           headers: {
@@ -148,7 +148,7 @@ export default function Settings() {
   const setup2FA = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/settings/2fa_setup.php",
+        "https://sendnawtechnologies.infinityfree.io/api/settings/2fa_setup.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -177,7 +177,7 @@ export default function Settings() {
     }
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/settings/2fa_enable.php",
+        "https://sendnawtechnologies.infinityfree.io/api/settings/2fa_enable.php",
         {
           method: "POST",
           headers: {
@@ -207,7 +207,7 @@ export default function Settings() {
   const disable2FA = async () => {
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/settings/2fa_disable.php",
+        "https://sendnawtechnologies.infinityfree.io/api/settings/2fa_disable.php",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

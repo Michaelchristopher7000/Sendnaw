@@ -80,7 +80,7 @@ const SignIn = () => {
 
     try {
       const response = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/auth/login.php",
+        "https://sendnawtechnologies.infinityfree.io/api/auth/login.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

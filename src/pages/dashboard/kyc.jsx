@@ -149,7 +149,7 @@ export default function Kyc() {
     setVerifyingNin(true);
     try {
       const res = await fetch(
-        "http://sendnawtechnologies.infinityfree.io/api/user/verify_nin.php",
+        "https://sendnawtechnologies.infinityfree.io/api/user/verify_nin.php",
         {
           method: "POST",
           headers: {
@@ -197,7 +197,7 @@ export default function Kyc() {
         }
 
         const r1 = await fetch(
-          "http://sendnawtechnologies.infinityfree.io/api/kyc/submit.php",
+          "https://sendnawtechnologies.infinityfree.io/api/kyc/submit.php",
           {
             method: "POST",
             headers: {
@@ -216,7 +216,7 @@ export default function Kyc() {
 
         if (requestedTier) {
           const r2 = await fetch(
-            "http://sendnawtechnologies.infinityfree.io/api/kyc/upgrade_request.php",
+            "https://sendnawtechnologies.infinityfree.io/api/kyc/upgrade_request.php",
             {
               method: "POST",
               headers: {
