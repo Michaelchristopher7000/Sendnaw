@@ -333,7 +333,7 @@ function CreateGroupModal({ onClose, onCreated, colors }) {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/ajo/create.php",
+        "https://sendnawbackend.onrender.com/api/ajo/create.php",
         {
           method: "POST",
           headers: {
@@ -534,7 +534,7 @@ function JoinGroupModal({ onClose, onJoined, colors }) {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/ajo/join.php",
+        "https://sendnawbackend.onrender.com/api/ajo/join.php",
         {
           method: "POST",
           headers: {
@@ -688,7 +688,7 @@ export default function Ajo() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/ajo/my_groups.php",
+        "https://sendnawbackend.onrender.com/api/ajo/my_groups.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -713,7 +713,7 @@ export default function Ajo() {
   const contribute = async (groupId) => {
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/ajo/contribute.php",
+        "https://sendnawbackend.onrender.com/api/ajo/contribute.php",
         {
           method: "POST",
           headers: {
@@ -738,7 +738,7 @@ export default function Ajo() {
   const processPayout = async (groupId) => {
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/ajo/payout.php",
+        "https://sendnawbackend.onrender.com/api/ajo/payout.php",
         {
           method: "POST",
           headers: {
@@ -769,7 +769,7 @@ export default function Ajo() {
       return;
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/ajo/close.php",
+        "https://sendnawbackend.onrender.com/api/ajo/close.php",
         {
           method: "POST",
           headers: {

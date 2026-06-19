@@ -29,7 +29,7 @@ const AccountRecovery = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/auth/forgot_password.php",
+        "https://sendnawbackend.onrender.com/api/auth/forgot_password.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -66,7 +66,7 @@ const AccountRecovery = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/auth/reset_password.php",
+        "https://sendnawbackend.onrender.com/api/auth/reset_password.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

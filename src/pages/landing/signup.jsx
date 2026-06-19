@@ -316,7 +316,7 @@ const SignUp = () => {
         const fullPhone =
           countryCode.replace("+", "") + phone.replace(/\D/g, "");
         const response = await fetch(
-          "https://sendnawtechnologies.infinityfree.io/api/auth/send_otp.php",
+          "https://sendnawbackend.onrender.com/api/auth/send_otp.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -342,7 +342,7 @@ const SignUp = () => {
         const fullPhone =
           countryCode.replace("+", "") + phone.replace(/\D/g, "");
         const response = await fetch(
-          "https://sendnawtechnologies.infinityfree.io/api/auth/verify_otp.php",
+          "https://sendnawbackend.onrender.com/api/auth/verify_otp.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -379,7 +379,7 @@ const SignUp = () => {
           .replace(/\s+/g, " ")
           .trim() || "SendNaw User";
       const response = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/auth/register.php",
+        "https://sendnawbackend.onrender.com/api/auth/register.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -430,7 +430,7 @@ const SignUp = () => {
       const fullPhone = countryCode.replace("+", "") + phone.replace(/\D/g, "");
 
       const response = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/auth/send_otp.php",
+        "https://sendnawbackend.onrender.com/api/auth/send_otp.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

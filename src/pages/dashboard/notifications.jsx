@@ -51,7 +51,7 @@ export default function Notifications() {
   const fetchNotifications = async () => {
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/notifications/list.php",
+        "https://sendnawbackend.onrender.com/api/notifications/list.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -68,7 +68,7 @@ export default function Notifications() {
   const markAsRead = async (id) => {
     try {
       await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/notifications/mark_read.php",
+        "https://sendnawbackend.onrender.com/api/notifications/mark_read.php",
         {
           method: "POST",
           headers: {
@@ -89,7 +89,7 @@ export default function Notifications() {
   const markAllAsRead = async () => {
     try {
       await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/notifications/mark_all_read.php",
+        "https://sendnawbackend.onrender.com/api/notifications/mark_all_read.php",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

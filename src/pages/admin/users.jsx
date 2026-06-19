@@ -5,7 +5,7 @@ export default function Users() {
 
   useEffect(() => {
     fetch(
-      "https://sendnawtechnologies.infinityfree.io/api/admin/get_users.php",
+      "https://sendnawbackend.onrender.com/api/admin/get_users.php",
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       },

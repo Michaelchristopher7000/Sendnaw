@@ -16,7 +16,7 @@ if (
   document.head.appendChild(l);
 }
 
-const API = "https://sendnawtechnologies.infinityfree.io/api/bills";
+const API = "https://sendnawbackend.onrender.com/api/bills";
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -241,7 +241,7 @@ export default function Bills() {
     if (!selectedProvider) return;
     try {
       await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
+        "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json", ...auth() },

@@ -27,7 +27,7 @@ export default function NotificationBell({ token }) {
   // Fetch initial notifications
   useEffect(() => {
     if (!token) return;
-    fetch("https://sendnawtechnologies.infinityfree.io/api/notifications.php", {
+    fetch("https://sendnawbackend.onrender.com/api/notifications.php", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -70,7 +70,7 @@ export default function NotificationBell({ token }) {
   const markAsRead = async (id) => {
     try {
       await fetch(
-        `https://sendnawtechnologies.infinityfree.io/api/notifications.php/${id}/read`,
+        `https://sendnawbackend.onrender.com/api/notifications.php/${id}/read`,
         {
           method: "PUT",
           headers: { Authorization: `Bearer ${token}` },
@@ -88,7 +88,7 @@ export default function NotificationBell({ token }) {
   const markAllAsRead = async () => {
     try {
       await fetch(
-        `https://sendnawtechnologies.infinityfree.io/api/notifications.php/read-all`,
+        `https://sendnawbackend.onrender.com/api/notifications.php/read-all`,
         {
           method: "PUT",
           headers: { Authorization: `Bearer ${token}` },

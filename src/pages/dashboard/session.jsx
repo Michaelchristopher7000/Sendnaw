@@ -177,7 +177,7 @@ export default function Sessions() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/settings/session.php",
+        "https://sendnawbackend.onrender.com/api/settings/session.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -200,7 +200,7 @@ export default function Sessions() {
   const revokeSession = async (tokenId) => {
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/settings/revoke_session.php",
+        "https://sendnawbackend.onrender.com/api/settings/revoke_session.php",
         {
           method: "POST",
           headers: {

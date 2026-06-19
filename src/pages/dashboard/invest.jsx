@@ -592,7 +592,7 @@ export default function Invest() {
   const fetchStocks = async () => {
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/invest/stocks.php",
+        "https://sendnawbackend.onrender.com/api/invest/stocks.php",
       );
       const data = await res.json();
       if (data.success) setStocks(data.stocks);
@@ -604,7 +604,7 @@ export default function Invest() {
   const fetchPortfolio = async () => {
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/invest/portfolio.php",
+        "https://sendnawbackend.onrender.com/api/invest/portfolio.php",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         },
@@ -620,7 +620,7 @@ export default function Invest() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/invest/buy.php",
+        "https://sendnawbackend.onrender.com/api/invest/buy.php",
         {
           method: "POST",
           headers: {
@@ -647,7 +647,7 @@ export default function Invest() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/invest/sell.php",
+        "https://sendnawbackend.onrender.com/api/invest/sell.php",
         {
           method: "POST",
           headers: {

@@ -16,7 +16,7 @@ if (
   document.head.appendChild(l);
 }
 
-const API = "https://sendnawtechnologies.infinityfree.io/api/bills";
+const API = "https://sendnawbackend.onrender.com/api/bills";
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -127,7 +127,7 @@ export default function Data() {
         const [provRes, beneRes] = await Promise.all([
           fetch(`${API}/providers.php?type=data`),
           fetch(
-            "https://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
+            "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
             { headers: auth() },
           ),
         ]);
@@ -224,7 +224,7 @@ export default function Data() {
         const fullName = `${selectedProvider.name} Data`;
         const avatarUrl = getLogo(selectedProvider.name) || "";
         await fetch(
-          "https://sendnawtechnologies.infinityfree.io/api/transfers/beneficiaries.php",
+          "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json", ...auth() },

@@ -16,7 +16,7 @@ if (
   document.head.appendChild(l);
 }
 
-const API = "https://sendnawtechnologies.infinityfree.io/api/giftcards";
+const API = "https://sendnawbackend.onrender.com/api/giftcards";
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });

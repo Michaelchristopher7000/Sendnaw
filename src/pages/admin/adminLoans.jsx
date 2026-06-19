@@ -10,7 +10,7 @@ export default function AdminLoans() {
 
   const fetchPending = async () => {
     const res = await fetch(
-      "https://sendnawtechnologies.infinityfree.io/api/admin/loan_requests.php",
+      "https://sendnawbackend.onrender.com/api/admin/loan_requests.php",
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       },
@@ -21,7 +21,7 @@ export default function AdminLoans() {
 
   const handleAction = async (loanId, action, reason = "") => {
     const res = await fetch(
-      "https://sendnawtechnologies.infinityfree.io/api/admin/approve_loan.php",
+      "https://sendnawbackend.onrender.com/api/admin/approve_loan.php",
       {
         method: "POST",
         headers: {

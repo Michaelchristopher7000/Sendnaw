@@ -1,4 +1,4 @@
-const BASE = 'https://sendnawtechnologies.infinityfree.io/api';
+const BASE = 'https://sendnawbackend.onrender.com/api';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ export const getWalletBalances = async () => {
 };
 
 export const storeFCMToken = async (token) => {
-  const res = await fetch('https://sendnawtechnologies.infinityfree.io/api/notifications/store_token.php', {
+  const res = await fetch('https://sendnawbackend.onrender.com/api/notifications/store_token.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('token')}` },
     body: JSON.stringify({ fcm_token: token })

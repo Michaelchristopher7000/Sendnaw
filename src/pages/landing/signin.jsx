@@ -80,7 +80,7 @@ const SignIn = () => {
 
     try {
       const response = await fetch(
-        "https://sendnawtechnologies.infinityfree.io/api/auth/login.php",
+        "https://sendnawbackend.onrender.com/api/auth/login.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

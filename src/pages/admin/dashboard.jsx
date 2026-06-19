@@ -187,7 +187,7 @@
 //     setLoading(true);
 //     try {
 //       const res = await fetch(
-//         `https://sendnawtechnologies.infinityfree.io/api/${module.endpoint}`,
+//         `https://sendnawbackend.onrender.com/api/${module.endpoint}`,
 //         {
 //           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
 //         },
@@ -239,7 +239,7 @@
 //     setLoading(true);
 //     try {
 //       const res = await fetch(
-//         `https://sendnawtechnologies.infinityfree.io/api/${endpoint}`,
+//         `https://sendnawbackend.onrender.com/api/${endpoint}`,
 //         {
 //           method: "POST",
 //           headers: {
@@ -294,7 +294,7 @@
 //     setLoading(true);
 //     try {
 //       const res = await fetch(
-//         `https://sendnawtechnologies.infinityfree.io/api/${endpoint}`,
+//         `https://sendnawbackend.onrender.com/api/${endpoint}`,
 //         {
 //           method: "POST",
 //           headers: {

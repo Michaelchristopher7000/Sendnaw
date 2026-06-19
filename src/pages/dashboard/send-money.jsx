@@ -71,7 +71,7 @@ const SEND_TYPES = [
   },
 ];
 const QUICK = [500, 1000, 5000, 10000];
-const API = "https://sendnawtechnologies.infinityfree.io/api/transfers";
+const API = "https://sendnawbackend.onrender.com/api/transfers";
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
