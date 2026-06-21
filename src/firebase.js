@@ -1,15 +1,14 @@
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
-// Your Firebase config (from Firebase Console > Project settings)
 const firebaseConfig = {
-  apiKey: "AIzaSyDDAvbzNlznHo8ngBrDWO-qwTYgZZryEOo",
-  authDomain: "sendnaw-technologies.firebaseapp.com",
-  projectId: "sendnaw-technologies",
-  storageBucket: "sendnaw-technologies.firebasestorage.app",
-  messagingSenderId: "434841053818",
-  appId: "1:434841053818:web:2037a0178856ff3cb2a9c3",
-  measurementId: "G-KHCRQF5B7P"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -21,7 +20,7 @@ export const requestFCMToken = async () => {
         if (permission !== 'granted') return null;
 
         const token = await getToken(messaging, {
-            vapidKey: 'BML7tOwSxQ0zI-t4245DeLjanygU9sJsAQ37Nh8K7KfaDojR1JfKeGTG_LcfoBsd1nIqcsuPU4Ns-O4W3_M2S0w'  // from Firebase Console > Cloud Messaging
+            vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY
         });
         if (token) {
             console.log('FCM Token:', token);
