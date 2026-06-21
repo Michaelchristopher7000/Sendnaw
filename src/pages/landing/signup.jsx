@@ -230,6 +230,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingMsg, setLoadingMsg] = useState("");
   const [toastMsg, setToastMsg] = useState(null);
   const [toastType, setToastType] = useState("danger");
   const [sendnawTag, setSendnawTag] = useState("");
@@ -309,28 +310,37 @@ const SignUp = () => {
 
     // Show confirming state before moving to next step
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (currentStep === 2) {
       // Send OTP when moving from step 2 to step 3
+      setLoadingMsg("Sending code to " + email + "...");
       try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 20000);
         const response = await fetch(
           "https://sendnawbackend.onrender.com/api/auth/send_otp.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: email }),
+            signal: controller.signal,
           },
         );
+        clearTimeout(timeout);
         const data = await response.json();
-        console.log("OTP response:", data);
         if (!data.success) {
           setLoading(false);
+          setLoadingMsg("");
           return showToast(data.message);
         }
         showToast("Verification code sent to your email", "success");
       } catch (err) {
         setLoading(false);
+        setLoadingMsg("");
+        if (err.name === "AbortError") {
+          return showToast("Server is waking up, please try again in a few seconds.");
+        }
         return showToast("Could not send verification code. Please try again.");
       }
     }
@@ -362,6 +372,7 @@ const SignUp = () => {
 
     if (currentStep < 5) {
       setLoading(false);
+      setLoadingMsg("");
       setCurrentStep((prev) => prev + 1);
       return;
     }
@@ -975,14 +986,18 @@ const SignUp = () => {
           style={{ backgroundColor: "#6f42c1" }}
           disabled={loading}
         >
-          {loading && (
-            <span
-              className="spinner-border spinner-border-sm me-2"
-              role="status"
-              aria-hidden="true"
-            ></span>
+          {loading ? (
+            <span className="d-flex align-items-center justify-content-center gap-2">
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              {loadingMsg || "Please wait..."}
+            </span>
+          ) : (
+            currentStep === 5 ? "Create Account" : "Next"
           )}
-          {currentStep === 5 ? "Create Account" : "Next"}
         </button>
       </form>
     );
