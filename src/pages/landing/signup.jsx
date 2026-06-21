@@ -583,7 +583,7 @@ const SignUp = () => {
             >
               <i className="bi bi-chevron-left"></i> Back
             </button>
-            <h2 className="fw-bold mb-2">Verify Phone Number</h2>
+            <h2 className="fw-bold mb-2">Verify Email Address</h2>
             <p className="text-muted mb-4">
               Enter the 6-digit code sent to your email.
             </p>
@@ -645,7 +645,7 @@ const SignUp = () => {
             <p className="text-muted mb-4">
               Complete your profile by adding your phone and selecting a currency.
             </p>
-            
+
             <div className="mb-4">
               <label className="form-label small fw-semibold">
                 Default Currency
@@ -679,13 +679,12 @@ const SignUp = () => {
                 />
                 <input
                   type="tel"
-                  className={`form-control py-3 px-3 rounded-3 shadow-none ${
-                    isOver
-                      ? "border-danger"
-                      : isComplete
-                        ? "border-success"
-                        : ""
-                  }`}
+                  className={`form-control py-3 px-3 rounded-3 shadow-none ${isOver
+                    ? "border-danger"
+                    : isComplete
+                      ? "border-success"
+                      : ""
+                    }`}
                   placeholder={`e.g. ${selectedCountry.example}`}
                   value={phone}
                   onChange={(e) => {
@@ -709,15 +708,14 @@ const SignUp = () => {
               <div className="d-flex justify-content-between align-items-center mt-2">
                 <small
                   className={`
-            ${
-              isOver
-                ? "text-danger"
-                : isComplete
-                  ? "text-success"
-                  : isEmpty
-                    ? "text-muted"
-                    : "text-warning"
-            }
+            ${isOver
+                      ? "text-danger"
+                      : isComplete
+                        ? "text-success"
+                        : isEmpty
+                          ? "text-muted"
+                          : "text-warning"
+                    }
           `}
                 >
                   {isEmpty
@@ -836,13 +834,12 @@ const SignUp = () => {
                 onClick={() => setAccountType(type)}
               >
                 <i
-                  className={`bi me-2 ${
-                    type === "personal"
-                      ? "bi-person-fill"
-                      : type === "business"
-                        ? "bi-briefcase-fill"
-                        : "bi-bank2"
-                  }`}
+                  className={`bi me-2 ${type === "personal"
+                    ? "bi-person-fill"
+                    : type === "business"
+                      ? "bi-briefcase-fill"
+                      : "bi-bank2"
+                    }`}
                 ></i>
                 {type.charAt(0).toUpperCase() + type.slice(1)} Account
               </button>
