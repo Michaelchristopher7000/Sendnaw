@@ -1848,7 +1848,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const [displayCurrency, setDisplayCurrency] = useState(
-    () => localStorage.getItem("sn_currency") || "NGN",
+    () => localStorage.getItem("sn_currency") || user?.default_currency || "NGN",
   );
   const [balances, setBalances] = useState([]);
   const [transactions, setTransactions] = useState([]);
@@ -1977,7 +1977,7 @@ export default function Dashboard() {
         />
       </div>
 
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: 20, display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
         <button
           onClick={handleCopy}
           style={{
@@ -2000,6 +2000,25 @@ export default function Dashboard() {
           />
           {copied ? "Copied!" : `Account: ${user?.account_number || "—"}`}
         </button>
+
+        {user?.account_type && (
+          <div style={{
+            background: user.account_type === 'Banking' ? '#e6f0ff' : user.account_type === 'Business' ? '#fff0e6' : colors.purpleLight,
+            color: user.account_type === 'Banking' ? '#0d6efd' : user.account_type === 'Business' ? '#fd7e14' : colors.purple,
+            padding: "6px 14px",
+            borderRadius: 999,
+            fontSize: 12,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            border: `1px solid ${user.account_type === 'Banking' ? '#b3d4fc' : user.account_type === 'Business' ? '#ffcda8' : colors.purpleLight}`,
+            display: "flex",
+            alignItems: "center",
+            gap: 6
+          }}>
+            <i className={`bi ${user.account_type === 'Banking' ? 'bi-bank2' : user.account_type === 'Business' ? 'bi-briefcase-fill' : 'bi-person-fill'}`}></i>
+            {user.account_type} ACCOUNT
+          </div>
+        )}
       </div>
 
       <div

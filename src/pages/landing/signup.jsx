@@ -64,10 +64,10 @@ const RequirementItem = ({ icon, title, description }) => (
 
 const StepIndicator = ({ currentStep }) => {
   const steps = [
-    "Phone Number",
+    "Email Address",
     "Consent Request",
     "Verification",
-    "Email Address",
+    "Phone & Currency",
     "Setup Password",
   ];
   return (
@@ -219,6 +219,7 @@ const SignUp = () => {
   const [page, setPage] = useState("accountType");
   const [currentStep, setCurrentStep] = useState(1);
   const [accountType, setAccountType] = useState("");
+  const [defaultCurrency, setDefaultCurrency] = useState("NGN");
   const [phone, setPhone] = useState("");
   const [countryCode, setCountryCode] = useState("+234");
   const [termsChecked, setTermsChecked] = useState(false);
@@ -259,7 +260,19 @@ const SignUp = () => {
 
   const validateStep = () => {
     switch (currentStep) {
-      case 1: {
+      case 1:
+        return !email.includes("@")
+          ? "Please enter a valid email address"
+          : null;
+      case 2:
+        return !termsChecked || !privacyChecked
+          ? "Please agree to both Terms and Privacy Policy"
+          : null;
+      case 3:
+        return otp.join("").length < 6
+          ? "Please enter the complete 6-digit code"
+          : null;
+      case 4: {
         const selectedCountry = countryCodes.find(
           (c) => c.code === countryCode,
         );
@@ -275,18 +288,6 @@ const SignUp = () => {
         }
         return null;
       }
-      case 2:
-        return !termsChecked || !privacyChecked
-          ? "Please agree to both Terms and Privacy Policy"
-          : null;
-      case 3:
-        return otp.join("").length < 6
-          ? "Please enter the complete 6-digit code"
-          : null;
-      case 4:
-        return !email.includes("@")
-          ? "Please enter a valid email address"
-          : null;
       case 5:
         return password.length < 6
           ? "Password must be at least 6 characters"
@@ -310,17 +311,15 @@ const SignUp = () => {
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    if (currentStep === 1) {
-      // Send OTP when moving from step 1 to step 2
+    if (currentStep === 2) {
+      // Send OTP when moving from step 2 to step 3
       try {
-        const fullPhone =
-          countryCode.replace("+", "") + phone.replace(/\D/g, "");
         const response = await fetch(
           "https://sendnawbackend.onrender.com/api/auth/send_otp.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ phone: fullPhone }),
+            body: JSON.stringify({ email: email }),
           },
         );
         const data = await response.json();
@@ -329,7 +328,7 @@ const SignUp = () => {
           setLoading(false);
           return showToast(data.message);
         }
-        showToast("Verification code sent to your phone", "success");
+        showToast("Verification code sent to your email", "success");
       } catch (err) {
         setLoading(false);
         return showToast("Could not send verification code. Please try again.");
@@ -339,15 +338,13 @@ const SignUp = () => {
     if (currentStep === 3) {
       // Verify OTP when moving from step 3 to step 4
       try {
-        const fullPhone =
-          countryCode.replace("+", "") + phone.replace(/\D/g, "");
         const response = await fetch(
           "https://sendnawbackend.onrender.com/api/auth/verify_otp.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              phone: fullPhone,
+              email: email,
               otp: otp.join(""),
             }),
           },
@@ -389,6 +386,8 @@ const SignUp = () => {
             email: email,
             password: password,
             country_code: countryCode,
+            account_type: accountType === "personal" ? "Personal" : accountType === "business" ? "Business" : "Banking",
+            default_currency: defaultCurrency,
           }),
         },
       );
@@ -427,14 +426,12 @@ const SignUp = () => {
     try {
       setLoading(true);
 
-      const fullPhone = countryCode.replace("+", "") + phone.replace(/\D/g, "");
-
       const response = await fetch(
         "https://sendnawbackend.onrender.com/api/auth/send_otp.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone: fullPhone }),
+          body: JSON.stringify({ email: email }),
         },
       );
 
@@ -456,105 +453,28 @@ const SignUp = () => {
 
   const renderStepContent = () => {
     switch (currentStep) {
-      case 1: {
-        const selectedCountry = countryCodes.find(
-          (c) => c.code === countryCode,
-        );
-        const digitsOnly = phone.replace(/\D/g, "");
-        const isOver = digitsOnly.length > selectedCountry.digits;
-        const isComplete = digitsOnly.length === selectedCountry.digits;
-        const isEmpty = digitsOnly.length === 0;
-
+      case 1:
         return (
           <>
-            <h2 className="fw-bold mb-2">What is your phone number?</h2>
-            <p className="text-muted small mb-4">
-              Enter the phone number you want to use for this account.
+            <h2 className="fw-bold mb-2">What is your email address?</h2>
+            <p className="text-muted mb-4">
+              Enter the email address you want to use for this account.
             </p>
             <div className="mb-3">
               <label className="form-label small fw-semibold">
-                Phone number
+                Email address
               </label>
-              <div className="d-flex gap-2">
-                {/* ------ Country Code with real flags ------ */}
-                <CountryDropdown
-                  countryCodes={countryCodes}
-                  selectedCode={countryCode}
-                  onSelect={(code) => {
-                    setCountryCode(code);
-                    setPhone("");
-                    setPhoneError("");
-                  }}
-                />
-                <input
-                  type="tel"
-                  className={`form-control py-3 px-3 rounded-3 shadow-none ${
-                    isOver
-                      ? "border-danger"
-                      : isComplete
-                        ? "border-success"
-                        : ""
-                  }`}
-                  placeholder={`e.g. ${selectedCountry.example}`}
-                  value={phone}
-                  onChange={(e) => {
-                    const val = e.target.value.replace(/\D/g, "");
-                    if (val.length <= selectedCountry.digits) {
-                      setPhone(val);
-                      setPhoneError("");
-                    } else {
-                      setPhoneError(
-                        `${selectedCountry.name} numbers must be exactly ${selectedCountry.digits} digits`,
-                      );
-                    }
-                  }}
-                  maxLength={selectedCountry.digits}
-                  autoComplete="tel"
-                  inputMode="numeric"
-                />
-              </div>
-
-              {/* Real time digit counter */}
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <small
-                  className={`
-            ${
-              isOver
-                ? "text-danger"
-                : isComplete
-                  ? "text-success"
-                  : isEmpty
-                    ? "text-muted"
-                    : "text-warning"
-            }
-          `}
-                >
-                  {isEmpty
-                    ? `Enter ${selectedCountry.digits} digits for ${selectedCountry.name}`
-                    : isComplete
-                      ? `✓ Valid ${selectedCountry.name} number`
-                      : isOver
-                        ? `✗ Too many digits for ${selectedCountry.name}`
-                        : `${selectedCountry.digits - digitsOnly.length} more digit${selectedCountry.digits - digitsOnly.length !== 1 ? "s" : ""} needed`}
-                </small>
-                <small
-                  className={`fw-bold ${isOver ? "text-danger" : isComplete ? "text-success" : "text-muted"}`}
-                >
-                  {digitsOnly.length}/{selectedCountry.digits}
-                </small>
-              </div>
-
-              {/* Inline error */}
-              {phoneError && (
-                <div className="alert alert-danger py-2 px-3 mt-2 mb-0 small rounded-3">
-                  <i className="bi bi-exclamation-circle me-1"></i>
-                  {phoneError}
-                </div>
-              )}
+              <input
+                type="email"
+                className="form-control py-3 px-3 rounded-3 shadow-none"
+                placeholder="Enter email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
             </div>
           </>
         );
-      }
 
       case 2:
         return (
@@ -654,7 +574,7 @@ const SignUp = () => {
             </button>
             <h2 className="fw-bold mb-2">Verify Phone Number</h2>
             <p className="text-muted mb-4">
-              Enter the 6-digit code sent via SMS.
+              Enter the 6-digit code sent to your email.
             </p>
             <div className="d-flex justify-content-between gap-2 mb-4">
               {otp.map((digit, index) => (
@@ -691,7 +611,15 @@ const SignUp = () => {
           </>
         );
 
-      case 4:
+      case 4: {
+        const selectedCountry = countryCodes.find(
+          (c) => c.code === countryCode,
+        );
+        const digitsOnly = phone.replace(/\D/g, "");
+        const isOver = digitsOnly.length > selectedCountry.digits;
+        const isComplete = digitsOnly.length === selectedCountry.digits;
+        const isEmpty = digitsOnly.length === 0;
+
         return (
           <>
             <button
@@ -702,25 +630,111 @@ const SignUp = () => {
             >
               <i className="bi bi-chevron-left"></i> Back
             </button>
-            <h2 className="fw-bold mb-2">What is your email address?</h2>
+            <h2 className="fw-bold mb-2">Account Details</h2>
             <p className="text-muted mb-4">
-              Enter the email address you want to use for this account.
+              Complete your profile by adding your phone and selecting a currency.
             </p>
+            
+            <div className="mb-4">
+              <label className="form-label small fw-semibold">
+                Default Currency
+              </label>
+              <select
+                className="form-select py-3 px-3 rounded-3 shadow-none"
+                value={defaultCurrency}
+                onChange={(e) => setDefaultCurrency(e.target.value)}
+              >
+                <option value="NGN">NGN - Nigerian Naira</option>
+                <option value="USD">USD - US Dollar</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="EUR">EUR - Euro</option>
+              </select>
+            </div>
+
             <div className="mb-3">
               <label className="form-label small fw-semibold">
-                Email address
+                Phone number
               </label>
-              <input
-                type="email"
-                className="form-control py-3 px-3 rounded-3 shadow-none"
-                placeholder="Enter email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="email"
-              />
+              <div className="d-flex gap-2">
+                {/* ------ Country Code with real flags ------ */}
+                <CountryDropdown
+                  countryCodes={countryCodes}
+                  selectedCode={countryCode}
+                  onSelect={(code) => {
+                    setCountryCode(code);
+                    setPhone("");
+                    setPhoneError("");
+                  }}
+                />
+                <input
+                  type="tel"
+                  className={`form-control py-3 px-3 rounded-3 shadow-none ${
+                    isOver
+                      ? "border-danger"
+                      : isComplete
+                        ? "border-success"
+                        : ""
+                  }`}
+                  placeholder={`e.g. ${selectedCountry.example}`}
+                  value={phone}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, "");
+                    if (val.length <= selectedCountry.digits) {
+                      setPhone(val);
+                      setPhoneError("");
+                    } else {
+                      setPhoneError(
+                        `${selectedCountry.name} numbers must be exactly ${selectedCountry.digits} digits`,
+                      );
+                    }
+                  }}
+                  maxLength={selectedCountry.digits}
+                  autoComplete="tel"
+                  inputMode="numeric"
+                />
+              </div>
+
+              {/* Real time digit counter */}
+              <div className="d-flex justify-content-between align-items-center mt-2">
+                <small
+                  className={`
+            ${
+              isOver
+                ? "text-danger"
+                : isComplete
+                  ? "text-success"
+                  : isEmpty
+                    ? "text-muted"
+                    : "text-warning"
+            }
+          `}
+                >
+                  {isEmpty
+                    ? `Enter ${selectedCountry.digits} digits for ${selectedCountry.name}`
+                    : isComplete
+                      ? `✓ Valid ${selectedCountry.name} number`
+                      : isOver
+                        ? `✗ Too many digits for ${selectedCountry.name}`
+                        : `${selectedCountry.digits - digitsOnly.length} more digit${selectedCountry.digits - digitsOnly.length !== 1 ? "s" : ""} needed`}
+                </small>
+                <small
+                  className={`fw-bold ${isOver ? "text-danger" : isComplete ? "text-success" : "text-muted"}`}
+                >
+                  {digitsOnly.length}/{selectedCountry.digits}
+                </small>
+              </div>
+
+              {/* Inline error */}
+              {phoneError && (
+                <div className="alert alert-danger py-2 px-3 mt-2 mb-0 small rounded-3">
+                  <i className="bi bi-exclamation-circle me-1"></i>
+                  {phoneError}
+                </div>
+              )}
             </div>
           </>
         );
+      }
 
       case 5:
         return (
