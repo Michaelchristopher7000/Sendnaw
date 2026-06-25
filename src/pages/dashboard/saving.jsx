@@ -187,12 +187,38 @@ function PlanCard({ plan, selected, onSelect, colors }) {
         p.a. · Min ₦{plan.min_amount.toLocaleString()}
         {plan.duration_days && ` · ${plan.duration_days} days`}
       </p>
-      <p style={{ fontSize: 12, color: colors.textSecondary, margin: 0 }}>
-        {plan.type === "locked"
-          ? "🔒 Locked – early liquidation requires admin approval (72h)"
-          : plan.type === "fixed"
-            ? `📅 Fixed term – maturity after ${plan.duration_days} days`
-            : "✅ Flexible – withdraw anytime"}
+      <p
+        style={{
+          fontSize: 12,
+          color: colors.textSecondary,
+          margin: 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+        }}
+      >
+        {plan.type === "locked" ? (
+          <>
+            <i className="bi bi-lock-fill" style={{ color: colors.warning }}></i>
+            Locked – early liquidation requires admin approval (72h)
+          </>
+        ) : plan.type === "fixed" ? (
+          <>
+            <i
+              className="bi bi-calendar-event"
+              style={{ color: colors.indigo }}
+            ></i>
+            Fixed term – maturity after {plan.duration_days} days
+          </>
+        ) : (
+          <>
+            <i
+              className="bi bi-check-circle-fill"
+              style={{ color: colors.green }}
+            ></i>
+            Flexible – withdraw anytime
+          </>
+        )}
       </p>
     </div>
   );
@@ -216,6 +242,22 @@ function SavingCard({ saving, onWithdraw, onLiquidate, colors }) {
     return 0;
   };
   const estimatedInterest = computeInterest();
+
+  // Maturity progress (only meaningful when there's a start and end date)
+  let progressPct = null;
+  let daysLeft = null;
+  if (saving.start_date && saving.end_date) {
+    const start = new Date(saving.start_date).getTime();
+    const end = new Date(saving.end_date).getTime();
+    const now = Date.now();
+    const totalSpan = end - start;
+    if (totalSpan > 0) {
+      const elapsed = now - start;
+      progressPct = Math.min(100, Math.max(0, (elapsed / totalSpan) * 100));
+      daysLeft = Math.max(0, Math.ceil((end - now) / 86400000));
+    }
+  }
+
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -312,6 +354,45 @@ function SavingCard({ saving, onWithdraw, onLiquidate, colors }) {
           </p>
         </div>
       </div>
+
+      {/* Maturity progress bar - common pattern on bank/fintech savings screens */}
+      {progressPct !== null && saving.status === "active" && (
+        <div style={{ marginBottom: 14 }}>
+          <div
+            style={{
+              height: 6,
+              borderRadius: 999,
+              background: colors.border,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                height: "100%",
+                width: `${progressPct}%`,
+                borderRadius: 999,
+                background: `linear-gradient(90deg, ${colors.indigo}, ${colors.purple})`,
+                transition: "width 0.3s ease",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: 6,
+              fontSize: 10,
+              color: colors.textSecondary,
+            }}
+          >
+            <span>{Math.round(progressPct)}% to maturity</span>
+            <span>
+              {daysLeft === 0 ? "Matured" : `${daysLeft} day${daysLeft === 1 ? "" : "s"} left`}
+            </span>
+          </div>
+        </div>
+      )}
+
       {saving.end_date && (
         <div
           style={{
@@ -639,28 +720,28 @@ function CreateSavingModal({ plans, onClose, onCreated, colors }) {
             borderRadius: "40px",
             background:
               loading ||
-              !selectedPlanId ||
-              !amount ||
-              parseFloat(amount) < minAmount ||
-              (showDurationPicker && !durationDays)
+                !selectedPlanId ||
+                !amount ||
+                parseFloat(amount) < minAmount ||
+                (showDurationPicker && !durationDays)
                 ? colors.border
                 : `linear-gradient(135deg, ${colors.indigo}, ${colors.purple})`,
             border: "none",
             color:
               loading ||
-              !selectedPlanId ||
-              !amount ||
-              parseFloat(amount) < minAmount ||
-              (showDurationPicker && !durationDays)
+                !selectedPlanId ||
+                !amount ||
+                parseFloat(amount) < minAmount ||
+                (showDurationPicker && !durationDays)
                 ? colors.textSecondary
                 : "#fff",
             fontWeight: 700,
             cursor:
               loading ||
-              !selectedPlanId ||
-              !amount ||
-              parseFloat(amount) < minAmount ||
-              (showDurationPicker && !durationDays)
+                !selectedPlanId ||
+                !amount ||
+                parseFloat(amount) < minAmount ||
+                (showDurationPicker && !durationDays)
                 ? "not-allowed"
                 : "pointer",
           }}
@@ -807,7 +888,7 @@ function LiquidateModal({ saving, onClose, onConfirm, colors }) {
 }
 
 export default function Savings() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [plans, setPlans] = useState([]);
@@ -929,33 +1010,6 @@ export default function Savings() {
         position: "relative",
       }}
     >
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.text,
-          fontWeight: 600,
-          fontSize: 13,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />{" "}
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
-
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <div
           style={{
