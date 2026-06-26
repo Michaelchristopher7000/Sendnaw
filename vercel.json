@@ -1,13 +1,8 @@
 {
-  "functions": {
-    "frontend/src/services/convert.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/frontend/src/services/convert.js"
+      "destination": "/api/$1"
     },
     {
       "source": "/(.*)",
