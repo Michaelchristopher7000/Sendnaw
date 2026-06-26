@@ -16,7 +16,12 @@ if (
   document.head.appendChild(link);
 }
 
-const API = "https://sendnawbackend.onrender.com/api/bills";
+const API = import.meta.env.DEV
+  ? '/api/bills'
+  : 'https://sendnawbackend.onrender.com/api/bills';
+const TRANSFERS_API = import.meta.env.DEV
+  ? '/api/transfers'
+  : 'https://sendnawbackend.onrender.com/api/transfers';
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -195,7 +200,7 @@ function NetworkLogo({ meta, size = 40 }) {
 
 export default function Airtime() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme(); // ✅ hook inside component
+  const { theme } = useTheme(); // ✅ hook inside component
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [providers, setProviders] = useState([]);
@@ -221,10 +226,7 @@ export default function Airtime() {
   }, []);
 
   useEffect(() => {
-    fetch(
-      "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
-      { headers: auth() },
-    )
+    fetch(`${TRANSFERS_API}/beneficiaries.php`, { headers: auth() })
       .then((r) => r.json())
       .then((d) => {
         if (d.success) {
@@ -261,22 +263,16 @@ export default function Airtime() {
   const saveBeneficiary = async () => {
     if (!selectedProvider || !meta) return;
     try {
-      await fetch(
-        "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...auth() },
-          body: JSON.stringify({
-            full_name: `${selectedProvider.name} – ${phone.trim()}`,
-            identifier: phone.trim(),
-            send_type: "phone",
-          }),
-        },
-      );
-      const res = await fetch(
-        "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
-        { headers: auth() },
-      );
+      await fetch(`${TRANSFERS_API}/beneficiaries.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...auth() },
+        body: JSON.stringify({
+          full_name: `${selectedProvider.name} – ${phone.trim()}`,
+          identifier: phone.trim(),
+          send_type: "phone",
+        }),
+      });
+      const res = await fetch(`${TRANSFERS_API}/beneficiaries.php`, { headers: auth() });
       const data = await res.json();
       if (data.success) {
         setBeneficiaries(
@@ -850,14 +846,6 @@ export default function Airtime() {
   // Main UI
   return (
     <div style={S.page}>
-      {/* Theme toggle button (floating) */}
-      <button onClick={toggleTheme} style={S.themeToggle}>
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
-
       <div style={S.card}>
         <div style={S.freeBanner}>
           <i className="bi bi-stars" style={{ color: "#FFD700" }} />

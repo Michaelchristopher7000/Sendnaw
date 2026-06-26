@@ -63,7 +63,7 @@ function formatTime(dateStr) {
 
 export default function TransactionHistory() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [transactions, setTransactions] = useState([]);

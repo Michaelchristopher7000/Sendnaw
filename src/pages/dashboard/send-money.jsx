@@ -71,7 +71,9 @@ const SEND_TYPES = [
   },
 ];
 const QUICK = [500, 1000, 5000, 10000];
-const API = "https://sendnawbackend.onrender.com/api/transfers";
+const API = import.meta.env.DEV
+  ? '/api/transfers'
+  : 'https://sendnawbackend.onrender.com/api/transfers';
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -247,7 +249,7 @@ function CurrencySelect({ value, onChange, disabled, colors }) {
 
 export default function SendMoney() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [sendType, setSendType] = useState("tag");
@@ -390,32 +392,7 @@ export default function SendMoney() {
           fontFamily: "'DM Sans','Nunito','Segoe UI',sans-serif",
         }}
       >
-        <button
-          onClick={toggleTheme}
-          style={{
-            position: "fixed",
-            top: "1rem",
-            right: "1rem",
-            zIndex: 100,
-            background: colors.cardBg,
-            border: `1px solid ${colors.border}`,
-            borderRadius: "40px",
-            padding: "8px 16px",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            cursor: "pointer",
-            color: colors.text,
-            fontWeight: 600,
-            fontSize: 13,
-          }}
-        >
-          <i
-            className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-          />{" "}
-          {theme === "light" ? "Dark" : "Light"}
-        </button>
-        <div
+          <div
           style={{
             width: "100%",
             maxWidth: 420,
@@ -641,32 +618,6 @@ export default function SendMoney() {
         position: "relative",
       }}
     >
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.text,
-          fontWeight: 600,
-          fontSize: 13,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />{" "}
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
 
       <div
         style={{

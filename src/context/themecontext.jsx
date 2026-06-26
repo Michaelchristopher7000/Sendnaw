@@ -7,10 +7,14 @@ export default function ThemeProvider({ children }) {
     return localStorage.getItem("appTheme") || "light";
   });
 
+  const setThemeMode = (value) => {
+    setTheme(value);
+    localStorage.setItem("appTheme", value);
+  };
+
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    localStorage.setItem("appTheme", next);
+    setThemeMode(next);
   };
 
   // Apply theme class to <body> so CSS can pick it up globally if needed
@@ -19,7 +23,7 @@ export default function ThemeProvider({ children }) {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme: setThemeMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

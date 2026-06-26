@@ -187,7 +187,7 @@ const BILL_TYPES = [
 
 export default function Bills() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme(); // ✅ hook inside component
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [billType, setBillType] = useState("electricity");
@@ -750,14 +750,6 @@ export default function Bills() {
 
   return (
     <div style={styles.page}>
-      {/* Theme toggle button (floating) */}
-      <button onClick={toggleTheme} style={styles.themeToggle}>
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
-
       <div style={styles.card}>
         <div style={styles.freeBanner}>
           <i className="bi bi-stars" style={{ color: "#FFD700" }} />

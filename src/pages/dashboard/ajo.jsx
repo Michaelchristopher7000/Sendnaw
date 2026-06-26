@@ -670,7 +670,7 @@ function JoinGroupModal({ onClose, onJoined, colors }) {
 
 // ─── Main Ajo Component ────────────────────────────────────────────────────
 export default function Ajo() {
-  const { theme, toggleTheme } = useTheme(); // ✅ hook inside component
+  const { theme } = useTheme(); // ✅ hook inside component
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [groups, setGroups] = useState([]);
@@ -811,34 +811,7 @@ export default function Ajo() {
         position: "relative",
       }}
     >
-      {/* Theme toggle button (floating) */}
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.borderLight}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.text,
-          fontWeight: 600,
-          fontSize: 13,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        ></i>
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
-
+      
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <div
           style={{

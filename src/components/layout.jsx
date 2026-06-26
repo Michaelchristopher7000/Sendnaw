@@ -392,7 +392,6 @@ function Sidebar({
   metrics,
   navigate,
   colors,
-  toggleTheme,
 }) {
   const sidebarWidth = collapsed ? 72 : (metrics?.sidebarDefault ?? 240);
   const goToProfile = () => navigate("/profile");
@@ -556,42 +555,6 @@ function Sidebar({
         </button>
       )}
 
-      {/* Dark mode toggle */}
-      <div style={{ padding: collapsed ? "8px 0" : "8px 20px", marginTop: 8 }}>
-        <button
-          onClick={toggleTheme}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: collapsed ? "10px 0" : "10px 12px",
-            justifyContent: collapsed ? "center" : "flex-start",
-            width: "100%",
-            background: "none",
-            border: "none",
-            borderRadius: 12,
-            cursor: "pointer",
-            color: colors.textSub,
-          }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = colors.purpleLight)
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "transparent")
-          }
-        >
-          <i
-            className={`bi ${colors.text === "#1C1130" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-            style={{ fontSize: 18 }}
-          />
-          {!collapsed && (
-            <span style={{ fontSize: 14, fontWeight: 600 }}>
-              {colors.text === "#1C1130" ? "Dark Mode" : "Light Mode"}
-            </span>
-          )}
-        </button>
-      </div>
-
       <nav style={{ flex: 1, padding: "12px 0", overflowY: "auto" }}>
         {NAV_ITEMS.map((item, idx) => renderNavItem(item, idx))}
         <div
@@ -659,7 +622,7 @@ function Sidebar({
 // ─── Main Layout ──────────────────────────────────────────────────────────
 export default function Layout() {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const isLight = theme === "light";
   const colors = {
     bg: isLight ? "#F9F7FF" : "#0F0A1A",
@@ -1008,7 +971,6 @@ export default function Layout() {
           metrics={metrics}
           navigate={navigate}
           colors={colors}
-          toggleTheme={toggleTheme}
         />
         <div
           style={{

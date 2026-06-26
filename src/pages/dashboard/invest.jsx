@@ -574,7 +574,7 @@ function PortfolioRow({ entry, onSellClick, hideBalance, colors }) {
 }
 
 export default function Invest() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
   const navigate = useNavigate();
   const [stocks, setStocks] = useState([]);
@@ -711,33 +711,6 @@ export default function Invest() {
         position: "relative",
       }}
     >
-      {/* Theme Toggle */}
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.textPrimary,
-          fontWeight: 600,
-          fontSize: 13,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />{" "}
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
 
       <button
         onClick={handleAddInvestmentClick}

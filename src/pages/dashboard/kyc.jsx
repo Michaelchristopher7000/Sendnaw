@@ -49,7 +49,7 @@ const DOCS_T2 = [
 export default function Kyc() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   // Determine current tier and next tier
@@ -451,32 +451,6 @@ export default function Kyc() {
         position: "relative",
       }}
     >
-      {/* Theme Toggle */}
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.text,
-          fontWeight: 600,
-          fontSize: 13,
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />{" "}
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
 
       <button
         onClick={() => navigate("/dashboard")}

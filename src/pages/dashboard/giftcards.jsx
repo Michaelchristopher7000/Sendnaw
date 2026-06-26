@@ -458,7 +458,7 @@ function PurchaseModal({ card, onClose, onConfirm, loading, colors }) {
 // ── Main GiftCards Component ──────────────────────────────────────────────
 export default function GiftCards() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme(); // ✅ hook inside component
+  const { theme } = useTheme(); // ✅ hook inside component
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [cards, setCards] = useState([]);
@@ -792,14 +792,6 @@ export default function GiftCards() {
 
   return (
     <div style={styles.page}>
-      {/* Theme toggle button */}
-      <button onClick={toggleTheme} style={styles.themeToggle}>
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
-
       <div style={styles.card}>
         <div style={styles.header}>
           <button onClick={() => navigate(-1)} style={styles.backBtn}>

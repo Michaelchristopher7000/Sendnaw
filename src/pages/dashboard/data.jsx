@@ -16,7 +16,12 @@ if (
   document.head.appendChild(l);
 }
 
-const API = "https://sendnawbackend.onrender.com/api/bills";
+const API = import.meta.env.DEV
+  ? '/api/bills'
+  : 'https://sendnawbackend.onrender.com/api/bills';
+const TRANSFERS_API = import.meta.env.DEV
+  ? '/api/transfers'
+  : 'https://sendnawbackend.onrender.com/api/transfers';
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -103,7 +108,7 @@ const detectNetwork = (phone) => {
 
 export default function Data() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme(); // ✅ hook inside component
+  const { theme } = useTheme(); // ✅ hook inside component
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [providers, setProviders] = useState([]);
@@ -126,10 +131,7 @@ export default function Data() {
       try {
         const [provRes, beneRes] = await Promise.all([
           fetch(`${API}/providers.php?type=data`),
-          fetch(
-            "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
-            { headers: auth() },
-          ),
+          fetch(`${TRANSFERS_API}/beneficiaries.php`, { headers: auth() }),
         ]);
         const provData = await provRes.json();
         if (provData.success) setProviders(provData.providers || []);
@@ -223,19 +225,16 @@ export default function Data() {
       if (d.success) {
         const fullName = `${selectedProvider.name} Data`;
         const avatarUrl = getLogo(selectedProvider.name) || "";
-        await fetch(
-          "https://sendnawbackend.onrender.com/api/transfers/beneficiaries.php",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json", ...auth() },
-            body: JSON.stringify({
-              full_name: fullName,
-              identifier: phone.trim(),
-              send_type: "phone",
-              avatar_url: avatarUrl,
-            }),
-          },
-        ).catch(() => {});
+        await fetch(`${TRANSFERS_API}/beneficiaries.php`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...auth() },
+          body: JSON.stringify({
+            full_name: fullName,
+            identifier: phone.trim(),
+            send_type: "phone",
+            avatar_url: avatarUrl,
+          }),
+        }).catch(() => {});
         showNotification("SendNaw", `Data purchase of ₦${amount} successful!`);
         setDone(true);
       } else {
@@ -601,14 +600,6 @@ export default function Data() {
   // Main component
   return (
     <div style={S.page}>
-      {/* Theme toggle button (floating) */}
-      <button onClick={toggleTheme} style={S.themeToggle}>
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
-
       <div style={S.card}>
         <div style={S.freeBanner}>
           <i className="bi bi-stars" style={{ color: "#FFD700" }} />

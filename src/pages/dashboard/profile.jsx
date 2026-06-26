@@ -75,7 +75,7 @@ const injectStyles = (colors) => `
 
 export default function Profile() {
   const { user: contextUser } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [limits, setLimits] = useState(null);
@@ -203,34 +203,6 @@ export default function Profile() {
   return (
     <div className="profile-root" style={{ position: "relative" }}>
       <style>{injectStyles(colors)}</style>
-
-      {/* Theme Toggle */}
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.text,
-          fontWeight: 600,
-          fontSize: 13,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars-fill" : "bi-brightness-high-fill"}`}
-        />{" "}
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
 
       {/* Hero Card */}
       <div className="hero-card">

@@ -32,7 +32,7 @@ const darkTheme = {
 export default function Receipt() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [tx, setTx] = useState(null);
@@ -184,31 +184,6 @@ export default function Receipt() {
         position: "relative",
       }}
     >
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 100,
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: "40px",
-          padding: "8px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          cursor: "pointer",
-          color: colors.text,
-          fontWeight: 600,
-          fontSize: 13,
-        }}
-      >
-        <i
-          className={`bi ${theme === "light" ? "bi-moon-stars" : "bi-brightness-high-fill"}`}
-        />{" "}
-        {theme === "light" ? "Dark" : "Light"}
-      </button>
 
       <div style={{ maxWidth: 480, margin: "0 auto" }}>
         <button

@@ -10,7 +10,8 @@ export default defineConfig({
       '/api': {
         target: 'https://sendnawbackend.onrender.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        // keep the `/api` prefix so backend paths like /api/transfers/... resolve
+        rewrite: (path) => path
       }
     }
   }

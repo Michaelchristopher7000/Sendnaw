@@ -44,7 +44,7 @@ const darkTheme = {
 
 export default function Settings() {
   const { user, token, login } = useAuth();
-  const { theme, toggleTheme } = useTheme(); // ✅ hook inside component
+  const { theme, setTheme } = useTheme();
   const COLORS = theme === "dark" ? darkTheme : lightTheme;
 
   const [activeTab, setActiveTab] = useState("profile");
@@ -317,6 +317,7 @@ export default function Settings() {
         <TabButton tab="2fa" label="2FA" icon="bi-shield-lock" />
         <TabButton tab="sessions" label="Sessions" icon="bi-windows" />
         <TabButton tab="notifications" label="Notifications" icon="bi-bell" />
+        <TabButton tab="theme" label="Theme" icon="bi-palette" />
       </div>
 
       {/* Profile Tab */}
@@ -725,6 +726,68 @@ export default function Settings() {
               deposits, and other important events.
             </p>
           )}
+        </div>
+      )}
+
+      {activeTab === "theme" && (
+        <div
+          style={{
+            background: COLORS.cardBg,
+            borderRadius: 24,
+            padding: 24,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: 18,
+              fontWeight: 600,
+              marginBottom: 16,
+              color: COLORS.text,
+            }}
+          >
+            Theme
+          </h3>
+          <p style={{ marginBottom: 24, color: COLORS.textSecondary }}>
+            Select the app theme that suits your preference.
+          </p>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <button
+              onClick={() => setTheme("light")}
+              style={{
+                flex: 1,
+                minWidth: 140,
+                background: theme === "light" ? COLORS.purple : COLORS.cardBg,
+                color: theme === "light" ? "#fff" : COLORS.text,
+                border: `1px solid ${COLORS.border}`,
+                padding: "12px 20px",
+                borderRadius: 40,
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+            >
+              Light Theme
+            </button>
+            <button
+              onClick={() => setTheme("dark")}
+              style={{
+                flex: 1,
+                minWidth: 140,
+                background: theme === "dark" ? COLORS.purple : COLORS.cardBg,
+                color: theme === "dark" ? "#fff" : COLORS.text,
+                border: `1px solid ${COLORS.border}`,
+                padding: "12px 20px",
+                borderRadius: 40,
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+            >
+              Dark Theme
+            </button>
+          </div>
+          <p style={{ marginTop: 24, color: COLORS.textSecondary }}>
+            Current selection: <strong>{theme === "light" ? "Light" : "Dark"}</strong>
+          </p>
         </div>
       )}
 
