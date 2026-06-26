@@ -80,16 +80,15 @@ const POPULAR_CURRENCIES = [
   { code: "NPR", name: "Nepalese Rupee", country: "np", flag: "np", symbol: "₨" },
 ];
 
-// Free exchange rate API endpoint (Frankfurter - no API key required)
-// Uses the free, open-source Frankfurter API based on ECB rates
-const EXCHANGE_API_URL = "https://api.frankfurter.app/latest";
-
-// Helper to get exchange rate between two currencies
+// ─── Exchange Rate API ──────────────────────────────────────────────────────
+// Uses a Vercel serverless function as a proxy to avoid CORS issues
 const getExchangeRate = async (from, to) => {
   try {
-    const response = await fetch(`${EXCHANGE_API_URL}?from=${from}&to=${to}`);
+    // Call the Vercel proxy endpoint
+    const response = await fetch(`/api/convert?from=${from}&to=${to}`);
     if (!response.ok) {
-      throw new Error("Failed to fetch exchange rate");
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to fetch exchange rate');
     }
     const data = await response.json();
     return data.rates[to];
