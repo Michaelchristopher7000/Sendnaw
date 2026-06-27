@@ -1,0 +1,76 @@
+{
+  "hash": "a7425497",
+  "configHash": "aec3dba0",
+  "lockfileHash": "e8e82057",
+  "browserHash": "792d7fd7",
+  "optimized": {
+    "aos": {
+      "src": "../../node_modules/aos/dist/aos.js",
+      "file": "aos.js",
+      "fileHash": "b5bdf88a",
+      "needsInterop": true
+    },
+    "bootstrap/dist/js/bootstrap.bundle.min.js": {
+      "src": "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "file": "bootstrap_dist_js_bootstrap__bundle__min__js.js",
+      "fileHash": "2ce35f9d",
+      "needsInterop": true
+    },
+    "firebase/app": {
+      "src": "../../node_modules/firebase/app/dist/esm/index.esm.js",
+      "file": "firebase_app.js",
+      "fileHash": "43faa3c5",
+      "needsInterop": false
+    },
+    "firebase/messaging": {
+      "src": "../../node_modules/firebase/messaging/dist/esm/index.esm.js",
+      "file": "firebase_messaging.js",
+      "fileHash": "e480d903",
+      "needsInterop": false
+    },
+    "html2canvas": {
+      "src": "../../node_modules/html2canvas/dist/html2canvas.js",
+      "file": "html2canvas.js",
+      "fileHash": "1e9327eb",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "c4660cf5",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "27110fcd",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "baf07d43",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "6088ab7c",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-FDOR9p9I": {
+      "file": "chunk-FDOR9p9I.js",
+      "isDynamicEntry": false
+    },
+    "index.esm-BVWTZR0o": {
+      "file": "index.esm-BVWTZR0o.js",
+      "isDynamicEntry": false
+    },
+    "react-dom-DLkJWeQJ": {
+      "file": "react-dom-DLkJWeQJ.js",
+      "isDynamicEntry": false
+    }
+  }
+}
