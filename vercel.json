@@ -5,7 +5,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!favicon\\.ico|favicon-16x16\\.png|favicon-32x32\\.png).*)",
       "destination": "/index.html"
     }
   ]
