@@ -3,58 +3,8 @@ import { useAuth } from "../../context/authcontext";
 import { useTheme } from "../../context/themecontext";
 import { getWalletBalances, getTransactionHistory } from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
+import { getThemeColors, CURRENCY_META } from "../../constants/wallettheme";
 
-// ─── Light & Dark Theme Definitions ──────────────────────────────────────
-const getThemeColors = (isLight) => ({
-  bg: isLight ? "#F9F7FF" : "#0F0A1A",
-  card: isLight ? "#FFFFFF" : "#1A1530",
-  text: isLight ? "#1C1130" : "#F1F5F9",
-  textSub: isLight ? "#7C6FA0" : "#A8A4C0",
-  border: isLight ? "#F3F0FF" : "#2A2440",
-  purple: isLight ? "#6B21E8" : "#8A5CF7",
-  purpleMid: isLight ? "#7C3AED" : "#9F7AEA",
-  purpleDeep: isLight ? "#4C1D95" : "#6B21E8",
-  purpleLight: isLight ? "#EDE9FE" : "#2D2A4A",
-  purplePill: isLight ? "#8B5CF6" : "#A78BFA",
-  green: isLight ? "#10B981" : "#34D399",
-  greenLight: isLight ? "#D1FAE5" : "#064E3B",
-  red: isLight ? "#EF4444" : "#F87171",
-  redLight: isLight ? "#FEE2E2" : "#7F1D1D",
-  gray: isLight ? "#9CA3AF" : "#6B7280",
-  grayMid: isLight ? "#6B7280" : "#9CA3AF",
-  orange: isLight ? "#F97316" : "#FB923C",
-  cyan: isLight ? "#06B6D4" : "#22D3EE",
-  amber: isLight ? "#F59E0B" : "#FBBF24",
-  surface: isLight ? "#F9F7FF" : "#1A1530",
-});
-
-const CURRENCY_META = {
-  NGN: {
-    symbol: "₦",
-    flagImg: "https://flagcdn.com/w40/ng.png",
-    label: "Nigerian Naira",
-  },
-  USD: {
-    symbol: "$",
-    flagImg: "https://flagcdn.com/w40/us.png",
-    label: "US Dollar",
-  },
-  GBP: {
-    symbol: "£",
-    flagImg: "https://flagcdn.com/w40/gb.png",
-    label: "British Pound",
-  },
-  EUR: {
-    symbol: "€",
-    flagImg: "https://flagcdn.com/w40/eu.png",
-    label: "Euro",
-  },
-  GHS: {
-    symbol: "GH₵",
-    flagImg: "https://flagcdn.com/w40/gh.png",
-    label: "Ghana Cedis",
-  },
-};
 const isDebit = (tx) =>
   ["send", "withdraw", "debit", "payment"].includes(tx.type);
 const greeting = () => {
@@ -629,7 +579,6 @@ function ActionBtn({ icon, label, color, bg, onClick, to, colors }) {
 
 function QuickActionsCard({
   colors,
-  onAddCash,
   onConvert,
   onWithdraw,
   isMobile,
@@ -686,7 +635,7 @@ function QuickActionsCard({
             label="Add Cash"
             color={colors.orange}
             bg="#FFF0E6"
-            onClick={onAddCash}
+            to="/deposit"
             colors={colors}
           />
           <ActionBtn
@@ -788,7 +737,7 @@ function QuickActionsCard({
           label="Add Cash"
           color={colors.orange}
           bg="#FFF0E6"
-          onClick={onAddCash}
+          to="/deposit"
           colors={colors}
         />
         <ActionBtn
@@ -1266,361 +1215,7 @@ function TabContent({ activeTab, transactions, handleReceipt, colors }) {
   return null;
 }
 
-// ==================== MODAL COMPONENTS ====================
-function DepositModal({ isOpen, onClose, onDeposit, colors }) {
-  const [amount, setAmount] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState("NGN");
-  const [showCurrencySelector, setShowCurrencySelector] = useState(false);
-
-  const currencies = [
-    {
-      code: "NGN",
-      symbol: "₦",
-      flag: "https://flagcdn.com/ng.svg",
-      label: "Nigerian Naira",
-    },
-    {
-      code: "USD",
-      symbol: "$",
-      flag: "https://flagcdn.com/us.svg",
-      label: "US Dollar",
-    },
-    {
-      code: "GBP",
-      symbol: "£",
-      flag: "https://flagcdn.com/gb.svg",
-      label: "British Pound",
-    },
-    {
-      code: "EUR",
-      symbol: "€",
-      flag: "https://flagcdn.com/eu.svg",
-      label: "Euro",
-    },
-    {
-      code: "GHS",
-      symbol: "GH₵",
-      flag: "https://flagcdn.com/gh.svg",
-      label: "Ghana Cedis",
-    }
-  ];
-  const quickAmounts = [1000, 2000, 5000, 10000, 20000, 50000];
-
-  const handleSubmit = async () => {
-    if (!amount) return;
-    setLoading(true);
-    await onDeposit(amount);
-    setLoading(false);
-    onClose();
-  };
-  const handleQuickAmount = (amt) => setAmount(amt.toString());
-  if (!isOpen) return null;
-  const currentCurrency =
-    currencies.find((c) => c.code === selectedCurrency) || currencies[0];
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "rgba(0,0,0,0.5)",
-        backdropFilter: "blur(4px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 1000,
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: colors.card,
-          borderRadius: 28,
-          padding: "32px 28px",
-          width: 480,
-          maxWidth: "90%",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 24,
-          }}
-        >
-          <h2
-            style={{
-              fontSize: 22,
-              fontWeight: 700,
-              margin: 0,
-              color: colors.text,
-            }}
-          >
-            Add Money
-          </h2>
-          <button
-            onClick={onClose}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: 20,
-              color: colors.textSub,
-            }}
-          >
-            <i className="bi bi-x-lg" />
-          </button>
-        </div>
-        <div style={{ marginBottom: 24 }}>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 500,
-              color: colors.textSub,
-              marginBottom: 8,
-            }}
-          >
-            Select currency
-          </div>
-          <div style={{ position: "relative" }}>
-            <button
-              onClick={() => setShowCurrencySelector(!showCurrencySelector)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "12px 16px",
-                border: `1.5px solid ${colors.border}`,
-                borderRadius: 16,
-                background: colors.purpleLight,
-                width: "100%",
-                cursor: "pointer",
-                justifyContent: "space-between",
-                color: colors.text,
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <img
-                  src={currentCurrency.flag}
-                  alt={currentCurrency.code}
-                  style={{ width: 28, height: 20, borderRadius: 4 }}
-                />
-                <span style={{ fontWeight: 600, fontSize: 16 }}>
-                  {currentCurrency.code} - {currentCurrency.label}
-                </span>
-              </div>
-              <i
-                className={`bi bi-chevron-${showCurrencySelector ? "up" : "down"}`}
-                style={{ fontSize: 14, color: colors.textSub }}
-              />
-            </button>
-            {showCurrencySelector && (
-              <>
-                <div
-                  onClick={() => setShowCurrencySelector(false)}
-                  style={{ position: "fixed", inset: 0, zIndex: 90 }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "calc(100% + 8px)",
-                    left: 0,
-                    right: 0,
-                    background: colors.card,
-                    borderRadius: 16,
-                    border: `1px solid ${colors.border}`,
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-                    zIndex: 100,
-                    overflow: "hidden",
-                  }}
-                >
-                  {currencies.map((c) => (
-                    <button
-                      key={c.code}
-                      onClick={() => {
-                        setSelectedCurrency(c.code);
-                        setShowCurrencySelector(false);
-                      }}
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 12,
-                        padding: "14px 16px",
-                        border: "none",
-                        background:
-                          selectedCurrency === c.code
-                            ? colors.purpleLight
-                            : colors.card,
-                        cursor: "pointer",
-                        textAlign: "left",
-                        color: colors.text,
-                      }}
-                    >
-                      <img
-                        src={c.flag}
-                        alt={c.code}
-                        style={{ width: 28, height: 20, borderRadius: 4 }}
-                      />
-                      <div>
-                        <div style={{ fontWeight: 600, fontSize: 15 }}>
-                          {c.code}
-                        </div>
-                        <div style={{ fontSize: 12, color: colors.textSub }}>
-                          {c.label}
-                        </div>
-                      </div>
-                      {selectedCurrency === c.code && (
-                        <i
-                          className="bi bi-check-lg"
-                          style={{ marginLeft: "auto", color: colors.purple }}
-                        />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        <div style={{ marginBottom: 24 }}>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 500,
-              color: colors.textSub,
-              marginBottom: 8,
-            }}
-          >
-            Amount
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              border: `1.5px solid ${colors.border}`,
-              borderRadius: 16,
-              padding: "12px 16px",
-              background: colors.purpleLight,
-            }}
-          >
-            <span
-              style={{
-                fontSize: 24,
-                fontWeight: 700,
-                color: colors.purple,
-                marginRight: 8,
-              }}
-            >
-              {currentCurrency.symbol}
-            </span>
-            <input
-              type="number"
-              placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              autoFocus
-              style={{
-                flex: 1,
-                border: "none",
-                background: "transparent",
-                fontSize: 24,
-                fontWeight: 600,
-                color: colors.text,
-                outline: "none",
-                padding: 0,
-              }}
-            />
-          </div>
-        </div>
-        <div style={{ marginBottom: 28 }}>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 500,
-              color: colors.textSub,
-              marginBottom: 12,
-            }}
-          >
-            Quick amounts
-          </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 10,
-            }}
-          >
-            {quickAmounts.map((amt) => (
-              <button
-                key={amt}
-                onClick={() => handleQuickAmount(amt)}
-                style={{
-                  padding: "10px 0",
-                  background: colors.purpleLight,
-                  border: "none",
-                  borderRadius: 12,
-                  fontSize: 14,
-                  fontWeight: 600,
-                  color: colors.text,
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = colors.border)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.background = colors.purpleLight)
-                }
-              >
-                {currentCurrency.symbol}
-                {amt.toLocaleString()}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 12 }}>
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            style={{
-              flex: 2,
-              background: colors.purple,
-              color: "#fff",
-              border: "none",
-              padding: "14px",
-              borderRadius: 40,
-              fontWeight: 700,
-              fontSize: 16,
-              cursor: loading ? "not-allowed" : "pointer",
-            }}
-          >
-            {loading ? "Processing..." : "Continue"}
-          </button>
-          <button
-            onClick={onClose}
-            style={{
-              flex: 1,
-              background: "transparent",
-              border: `1.5px solid ${colors.border}`,
-              borderRadius: 40,
-              fontWeight: 600,
-              fontSize: 16,
-              cursor: "pointer",
-              color: colors.textSub,
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+// ==================== MODAL: CONVERT ====================
 function ConvertModal({ isOpen, onClose, balances, colors }) {
   const [from, setFrom] = useState("NGN");
   const [to, setTo] = useState("USD");
@@ -1862,7 +1457,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("spend");
-  const [showDepositModal, setShowDepositModal] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -1915,23 +1509,6 @@ export default function Dashboard() {
     g[date].push(tx);
     return g;
   }, {});
-
-  const handleDeposit = async (amount) => {
-    const res = await fetch(
-      "https://sendnawbackend.onrender.com/api/deposit/initialized.php",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ amount: parseFloat(amount), currency: "NGN" }),
-      },
-    );
-    const data = await res.json();
-    if (data.success) window.location.href = data.authorization_url;
-    else alert(data.message);
-  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(user?.account_number || "");
@@ -2038,7 +1615,6 @@ export default function Dashboard() {
         <div>
           <QuickActionsCard
             colors={colors}
-            onAddCash={() => setShowDepositModal(true)}
             onConvert={() => setShowConvertModal(true)}
             onWithdraw={() => navigate("/withdraw")}
             isMobile={isMobile}
@@ -2063,12 +1639,6 @@ export default function Dashboard() {
         colors={colors}
       />
 
-      <DepositModal
-        isOpen={showDepositModal}
-        onClose={() => setShowDepositModal(false)}
-        onDeposit={handleDeposit}
-        colors={colors}
-      />
       <ConvertModal
         isOpen={showConvertModal}
         onClose={() => setShowConvertModal(false)}

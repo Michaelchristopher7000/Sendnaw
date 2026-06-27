@@ -62,6 +62,8 @@ const darkTheme = {
   stepInactive: "rgba(138,92,247,0.25)",
 };
 
+const MONO_FONT = "'DM Mono', 'SFMono-Regular', Menlo, Consolas, monospace";
+
 // ─── Nigerian Banks List (full) ───────────────────────────────────────────
 const ALL_BANKS = [
   {
@@ -263,6 +265,7 @@ function StepIndicator({ step, colors }) {
   const steps = ["Amount", "Bank", "Confirm"];
   return (
     <div
+      className="wd-step"
       style={{
         display: "flex",
         alignItems: "center",
@@ -282,9 +285,17 @@ function StepIndicator({ step, colors }) {
               display: "flex",
               alignItems: "center",
               flex: i < steps.length - 1 ? 1 : undefined,
+              minWidth: 0,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                minWidth: 0,
+              }}
+            >
               <div
                 style={{
                   width: 26,
@@ -295,6 +306,7 @@ function StepIndicator({ step, colors }) {
                   justifyContent: "center",
                   fontSize: 11,
                   fontWeight: 700,
+                  flexShrink: 0,
                   background: isDone
                     ? colors.stepDone
                     : isActive
@@ -315,11 +327,13 @@ function StepIndicator({ step, colors }) {
                 )}
               </div>
               <span
+                className="wd-step-label"
                 style={{
                   fontSize: 11,
                   fontWeight: 600,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
+                  whiteSpace: "nowrap",
                   color: isDone || isActive ? colors.text : colors.stepInactive,
                 }}
               >
@@ -472,8 +486,16 @@ export default function Withdraw() {
     : "";
 
   return (
-    <div style={{ maxWidth: 560, margin: "0 auto", padding: "24px 16px 48px" }}>
+    <div
+      className="wd-container"
+      style={{
+        maxWidth: 560,
+        margin: "0 auto",
+        padding: "24px 16px 48px",
+      }}
+    >
       <div
+        className="wd-card"
         style={{
           background: colors.cardBg,
           borderRadius: 28,
@@ -484,9 +506,10 @@ export default function Withdraw() {
       >
         {/* Header – gradient card (kept visible) */}
         <div
+          className="wd-header"
           style={{
             background: colors.accentGrad,
-            padding: "28px 28px 24px",
+            padding: "26px 28px 22px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -514,6 +537,7 @@ export default function Withdraw() {
             }}
           />
           <div
+            className="wd-decor-icon"
             style={{
               position: "absolute",
               top: "50%",
@@ -526,26 +550,52 @@ export default function Withdraw() {
           >
             <i className="bi bi-bank2" />
           </div>
+
+          {/* Back button – real-bank-style nav, no routing dependency required */}
+          <button
+            onClick={() => window.history.back()}
+            aria-label="Go back"
+            style={{
+              position: "relative",
+              zIndex: 1,
+              width: 34,
+              height: 34,
+              borderRadius: 10,
+              background: "rgba(255,255,255,0.16)",
+              border: "1px solid rgba(255,255,255,0.28)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              marginBottom: 14,
+            }}
+          >
+            <i
+              className="bi bi-arrow-left"
+              style={{ fontSize: 15, color: "#fff" }}
+            />
+          </button>
+
           <div
             style={{
               position: "relative",
               zIndex: 1,
               display: "flex",
               alignItems: "center",
-              gap: 16,
+              gap: 14,
             }}
           >
             <div
               style={{
-                width: 56,
-                height: 56,
-                borderRadius: 16,
+                width: 50,
+                height: 50,
+                borderRadius: 15,
                 background: "rgba(255,255,255,0.15)",
                 backdropFilter: "blur(8px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 26,
+                fontSize: 23,
                 color: "#fff",
                 flexShrink: 0,
                 boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
@@ -553,11 +603,11 @@ export default function Withdraw() {
             >
               <i className="bi bi-send-fill" />
             </div>
-            <div>
+            <div style={{ minWidth: 0 }}>
               <h1
                 style={{
                   margin: 0,
-                  fontSize: 22,
+                  fontSize: "clamp(19px, 5vw, 22px)",
                   fontWeight: 800,
                   color: "#fff",
                   letterSpacing: "-0.4px",
@@ -582,7 +632,34 @@ export default function Withdraw() {
         <StepIndicator step={currentStep} colors={colors} />
 
         {/* Form Body */}
-        <div style={{ padding: "28px 28px 24px" }}>
+        <div className="wd-body" style={{ padding: "26px 28px 22px" }}>
+          {/* Fees & limits strip — real-bank reassurance copy */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "9px 13px",
+              borderRadius: 12,
+              background: colors.shimmer,
+              marginBottom: 20,
+            }}
+          >
+            <i
+              className="bi bi-info-circle-fill"
+              style={{ fontSize: 13, color: colors.accent, flexShrink: 0 }}
+            />
+            <span
+              style={{
+                fontSize: 11.5,
+                color: colors.textSecondary,
+                lineHeight: 1.4,
+              }}
+            >
+              No transfer fee · Min ₦100 · Funds usually arrive within minutes
+            </span>
+          </div>
+
           {/* Amount */}
           <div style={{ marginBottom: 22 }}>
             <label
@@ -614,7 +691,7 @@ export default function Withdraw() {
                   fontWeight: 800,
                   color: colors.accent,
                   fontSize: 22,
-                  fontFamily: "'DM Mono', monospace",
+                  fontFamily: MONO_FONT,
                 }}
               >
                 ₦
@@ -622,6 +699,7 @@ export default function Withdraw() {
               <input
                 type="number"
                 step="0.01"
+                inputMode="decimal"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => handleAmountChange(e.target.value)}
@@ -629,14 +707,15 @@ export default function Withdraw() {
                 onBlur={() => setAmountFocused(false)}
                 style={{
                   width: "100%",
+                  boxSizing: "border-box",
                   padding: "15px 16px 15px 44px",
                   borderRadius: 16,
                   border: `1.5px solid ${amountFocused ? colors.inputFocusBorder : colors.inputBorder}`,
                   background: colors.inputBg,
                   color: colors.text,
-                  fontSize: 22,
+                  fontSize: "clamp(19px, 5vw, 22px)",
                   fontWeight: 700,
-                  fontFamily: "'DM Mono', monospace",
+                  fontFamily: MONO_FONT,
                   outline: "none",
                   transition: "border-color 0.2s",
                   boxShadow: amountFocused
@@ -658,7 +737,7 @@ export default function Withdraw() {
                   key={v}
                   onClick={() => handleQuickAmount(v)}
                   style={{
-                    padding: "5px 13px",
+                    padding: "6px 13px",
                     borderRadius: 20,
                     border: `1px solid ${amount == v ? colors.accent : colors.inputBorder}`,
                     background: amount == v ? colors.accentSoft : "transparent",
@@ -666,7 +745,7 @@ export default function Withdraw() {
                     fontSize: 12,
                     fontWeight: 600,
                     cursor: "pointer",
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: MONO_FONT,
                   }}
                 >
                   ₦{v.toLocaleString("en-NG")}
@@ -711,12 +790,15 @@ export default function Withdraw() {
                 }}
               >
                 <BankLogoOrFallback bank={selectedBank} size={36} />
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <div
                     style={{
                       fontWeight: 700,
                       fontSize: 13,
                       color: colors.text,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {selectedBank.name}
@@ -744,6 +826,7 @@ export default function Withdraw() {
                     color: colors.textSecondary,
                     fontSize: 18,
                     padding: 4,
+                    flexShrink: 0,
                   }}
                 >
                   <i className="bi bi-x-circle" />
@@ -752,9 +835,10 @@ export default function Withdraw() {
             )}
 
             <div
+              className="wd-bank-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
+                gridTemplateColumns: "repeat(auto-fill, minmax(82px, 1fr))",
                 gap: 10,
               }}
             >
@@ -765,7 +849,7 @@ export default function Withdraw() {
                     key={bank.code}
                     onClick={() => handleBankSelect(bank)}
                     style={{
-                      padding: "12px 8px",
+                      padding: "12px 6px",
                       borderRadius: 14,
                       border: `1.5px solid ${isSelected ? colors.bankCardSelectedBorder : colors.bankCardBorder}`,
                       background: isSelected
@@ -879,6 +963,8 @@ export default function Withdraw() {
               <div style={{ position: "relative" }}>
                 <input
                   type="text"
+                  inputMode="numeric"
+                  pattern="\d*"
                   placeholder="10-digit account number"
                   value={accountNumber}
                   maxLength={10}
@@ -889,6 +975,7 @@ export default function Withdraw() {
                   onBlur={() => setAcctFocused(false)}
                   style={{
                     width: "100%",
+                    boxSizing: "border-box",
                     padding: "14px 48px 14px 16px",
                     borderRadius: 16,
                     border: `1.5px solid ${acctFocused ? colors.inputFocusBorder : colors.inputBorder}`,
@@ -897,7 +984,7 @@ export default function Withdraw() {
                     fontSize: 16,
                     fontWeight: 500,
                     letterSpacing: "0.06em",
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: MONO_FONT,
                     outline: "none",
                     boxShadow: acctFocused
                       ? `0 0 0 3px ${colors.accent}18`
@@ -960,7 +1047,7 @@ export default function Withdraw() {
                       flexShrink: 0,
                     }}
                   />
-                  <div>
+                  <div style={{ minWidth: 0 }}>
                     <div
                       style={{
                         fontSize: 10,
@@ -978,6 +1065,9 @@ export default function Withdraw() {
                         fontWeight: 700,
                         color: colors.text,
                         marginTop: 2,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {accountName}
@@ -1027,10 +1117,17 @@ export default function Withdraw() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    gap: 12,
                     marginBottom: 8,
                   }}
                 >
-                  <span style={{ fontSize: 12, color: colors.textSecondary }}>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color: colors.textSecondary,
+                      flexShrink: 0,
+                    }}
+                  >
                     {label}
                   </span>
                   <span
@@ -1038,7 +1135,12 @@ export default function Withdraw() {
                       fontSize: 13,
                       fontWeight: 600,
                       color: colors.text,
-                      fontFamily: mono ? "'DM Mono', monospace" : undefined,
+                      fontFamily: mono ? MONO_FONT : undefined,
+                      textAlign: "right",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      minWidth: 0,
                     }}
                   >
                     {value}
@@ -1054,6 +1156,7 @@ export default function Withdraw() {
             disabled={!isReady || loading}
             style={{
               width: "100%",
+              boxSizing: "border-box",
               padding: "17px",
               borderRadius: 40,
               background: isReady ? colors.accentGrad : colors.inputBg,
@@ -1123,6 +1226,7 @@ export default function Withdraw() {
 
         {/* Footer */}
         <div
+          className="wd-footer"
           style={{
             background: colors.footerBg,
             borderTop: `1px solid ${colors.border}`,
@@ -1130,7 +1234,7 @@ export default function Withdraw() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 24,
+            gap: 22,
             flexWrap: "wrap",
           }}
         >
@@ -1147,6 +1251,7 @@ export default function Withdraw() {
                 gap: 6,
                 fontSize: 11,
                 color: colors.textSecondary,
+                whiteSpace: "nowrap",
               }}
             >
               <i
@@ -1161,6 +1266,35 @@ export default function Withdraw() {
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 640px) {
+          .wd-container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-bottom: 32px !important;
+          }
+          .wd-card {
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .wd-decor-icon { display: none !important; }
+          .wd-header { padding: 20px 18px 18px !important; }
+          .wd-body { padding: 18px 18px 18px !important; }
+          .wd-footer { padding: 12px 16px !important; gap: 14px !important; }
+          .wd-step { padding: 12px 16px !important; }
+          .wd-bank-grid {
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)) !important;
+            gap: 8px !important;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .wd-step-label { display: none !important; }
+        }
       `}</style>
     </div>
   );

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AOS from "aos";
 import { useEffect } from "react";
 import "aos/dist/aos.css";
@@ -50,6 +50,7 @@ import Notifications from "./pages/dashboard/notifications";
 import Services from "./pages/dashboard/services";
 import Gadgets from "./pages/dashboard/gadgets";
 import Converts from "./pages/dashboard/convert";
+import Deposit from "./pages/dashboard/deposit";
 
 import ThemeProvider from "./context/themecontext";
 
@@ -135,6 +136,7 @@ function App() {
             <Route path="/convert" element={<Converts />} />
             <Route path="/kyc" element={<KycPage />} />
             <Route path="/sessions" element={<Sessions />} />
+            <Route path="/deposit" element={<Deposit />} />
           </Route>
 
           {/* Admin Routes - Protected (admin) */}
@@ -145,13 +147,13 @@ function App() {
               element={<Navigate to="/admin/users" replace />}
             />{" "}
             {/* ← add this line */}
-            {/* <Route path="users" element={<AdminDashboard />} />
+          {/* <Route path="users" element={<AdminDashboard />} />
             <Route path="kyc" element={<AdminDashboard />} />
             <Route path="loans" element={<AdminDashboard />} />
             <Route path="withdrawals" element={<AdminDashboard />} />
             <Route path="liquidations" element={<AdminDashboard />} />
             <Route path="tier-requests" element={<AdminDashboard />} /> */}
-          {/* </Route> */} 
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
