@@ -170,12 +170,23 @@ export default function Profile() {
           body: formData,
         },
       );
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!data) {
+        showNotification("SendNaw", "Invalid server response", "error");
+        return;
+      }
       if (data.success) {
-        showNotification("SendNaw", "Avatar updated");
+        showNotification("SendNaw", "Avatar updated", "success");
         window.location.reload();
-      } else showNotification("SendNaw", data.message, "error");
-    } catch {
+      } else {
+        showNotification(
+          "SendNaw",
+          data.message || "Avatar upload failed",
+          "error",
+        );
+      }
+    } catch (error) {
+      console.error("Avatar upload failed", error);
       showNotification("SendNaw", "Network error", "error");
     }
   };
@@ -215,6 +226,10 @@ export default function Profile() {
                   `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(user?.email)}&background=6f42c1`
                 }
                 alt="Avatar"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(user?.email)}&background=6f42c1`;
+                }}
               />
             </div>
             {user?.kyc_tier >= 2 && (

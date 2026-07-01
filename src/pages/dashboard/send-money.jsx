@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authcontext";
 import { showNotification } from "../../utils/notify";
 import { useTheme } from "../../context/themecontext";
 
@@ -21,6 +22,7 @@ const lightTheme = {
   errorBorder: "#FFB4B4",
   green: "#2DBE8C",
   greenLight: "#F0FDF8",
+  greenBorder: "#A7E5C2",
   gray: "#9B8FCC",
   purple: "#5B2EDB",
 };
@@ -43,6 +45,7 @@ const darkTheme = {
   errorBorder: "#7F1D1D",
   green: "#34D399",
   greenLight: "#064E3B",
+  greenBorder: "#6EE7B7",
   gray: "#6B7280",
   purple: "#A78BFA",
 };
@@ -72,8 +75,11 @@ const SEND_TYPES = [
 ];
 const QUICK = [500, 1000, 5000, 10000];
 const API = import.meta.env.DEV
-  ? '/api/transfers'
-  : 'https://sendnawbackend.onrender.com/api/transfers';
+  ? "/api/transfers"
+  : "https://sendnawbackend.onrender.com/api/transfers";
+const SETTINGS_API = import.meta.env.DEV
+  ? "/api/settings"
+  : "https://sendnawbackend.onrender.com/api/settings";
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
@@ -250,11 +256,16 @@ function CurrencySelect({ value, onChange, disabled, colors }) {
 export default function SendMoney() {
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const colors = theme === "dark" ? darkTheme : lightTheme;
+  const { user: authUser } = useAuth();
+  const themeObj = theme === "dark" ? darkTheme : lightTheme;
+  const colors = themeObj;
 
   const [sendType, setSendType] = useState("tag");
   const [identifier, setIdentifier] = useState("");
   const [amount, setAmount] = useState("");
+  const [pin, setPin] = useState("");
+  const [pinError, setPinError] = useState("");
+  const [pinLoading, setPinLoading] = useState(false);
   const [currency, setCurrency] = useState("NGN");
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -283,21 +294,7 @@ export default function SendMoney() {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    clearTimeout(debounce.current);
-    setRecipientName("");
-    setRecipientAvatar("");
-    setLookupErr("");
-    if (!identifier.trim()) return;
-    debounce.current = setTimeout(() => {
-      identifier.trim().length >= 3
-        ? doLookup()
-        : setLookupErr("Enter at least 3 characters");
-    }, 600);
-    return () => clearTimeout(debounce.current);
-  }, [identifier, sendType]);
-
-  const doLookup = async () => {
+  const doLookup = useCallback(async () => {
     setLookingUp(true);
     try {
       const r = await fetch(
@@ -319,6 +316,27 @@ export default function SendMoney() {
     } finally {
       setLookingUp(false);
     }
+  }, [sendType, identifier]);
+
+  useEffect(() => {
+    clearTimeout(debounce.current);
+    if (!identifier.trim() || identifier.trim().length < 3) return;
+
+    debounce.current = setTimeout(doLookup, 600);
+    return () => clearTimeout(debounce.current);
+  }, [identifier, sendType, doLookup]);
+
+  const handleIdentifierChange = (value) => {
+    setIdentifier(value);
+    setRecipientName("");
+    setRecipientAvatar("");
+    setLookupErr(
+      value.trim().length === 0
+        ? ""
+        : value.trim().length < 3
+          ? "Enter at least 3 characters"
+          : "",
+    );
   };
 
   const pickBene = (b) => {
@@ -329,9 +347,44 @@ export default function SendMoney() {
     setLookupErr("");
   };
 
+  const verifyPin = async () => {
+    if (!authUser?.has_pin) return true;
+    setPinError("");
+    if (!pin || pin.length !== 4) {
+      setPinError("Enter your 4-digit PIN");
+      return false;
+    }
+    setPinLoading(true);
+    try {
+      const res = await fetch(`${SETTINGS_API}/verify_pin.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...auth() },
+        body: JSON.stringify({ pin }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        setPinError(data.message || "Incorrect PIN");
+        return false;
+      }
+      return true;
+    } catch {
+      setPinError("Unable to verify PIN. Check your connection.");
+      return false;
+    } finally {
+      setPinLoading(false);
+    }
+  };
+
   const handleSend = async () => {
     setLoading(true);
     setTxError("");
+    if (authUser?.has_pin) {
+      const pinOk = await verifyPin();
+      if (!pinOk) {
+        setLoading(false);
+        return;
+      }
+    }
     const epMap = {
       tag: "send_by_tag.php",
       account: "send_by_account.php",
@@ -392,7 +445,7 @@ export default function SendMoney() {
           fontFamily: "'DM Sans','Nunito','Segoe UI',sans-serif",
         }}
       >
-          <div
+        <div
           style={{
             width: "100%",
             maxWidth: 420,
@@ -618,7 +671,6 @@ export default function SendMoney() {
         position: "relative",
       }}
     >
-
       <div
         style={{
           width: "100%",
@@ -816,7 +868,7 @@ export default function SendMoney() {
                     type="button"
                     onClick={() => {
                       setSendType(t.value);
-                      setIdentifier("");
+                      handleIdentifierChange("");
                     }}
                     style={{
                       flex: 1,
@@ -1353,9 +1405,54 @@ export default function SendMoney() {
                 <i className="bi bi-exclamation-triangle-fill" /> {txError}
               </div>
             )}
+            {authUser?.has_pin && (
+              <div
+                style={{
+                  display: "grid",
+                  gap: 10,
+                }}
+              >
+                <label
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: colors.textSecondary,
+                  }}
+                >
+                  Enter transaction PIN
+                </label>
+                <input
+                  type="password"
+                  maxLength={4}
+                  inputMode="numeric"
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+                  placeholder="••••"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    borderRadius: 12,
+                    border: `1.5px solid ${pinError ? colors.error : colors.border}`,
+                    background: colors.inputBg,
+                    color: colors.text,
+                  }}
+                />
+                {pinError && (
+                  <p
+                    style={{
+                      margin: 0,
+                      color: colors.danger,
+                      fontSize: 12,
+                    }}
+                  >
+                    {pinError}
+                  </p>
+                )}
+              </div>
+            )}
             <button
               onClick={handleSend}
-              disabled={loading}
+              disabled={loading || pinLoading}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -1369,8 +1466,8 @@ export default function SendMoney() {
                 borderRadius: 13,
                 fontSize: 14,
                 fontWeight: 800,
-                cursor: "pointer",
-                opacity: loading ? 0.7 : 1,
+                cursor: loading || pinLoading ? "not-allowed" : "pointer",
+                opacity: loading || pinLoading ? 0.7 : 1,
               }}
             >
               {loading ? (

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authcontext";
 import Sessions from "./session";
 import { requestNotificationPermission } from "../../utils/notify";
@@ -42,22 +43,46 @@ const darkTheme = {
   messageText: "#F1F5F9",
 };
 
+const SETTINGS_API = import.meta.env.DEV
+  ? "/api/settings"
+  : "https://sendnawbackend.onrender.com/api/settings";
+
+const TabButton = ({ tab, label, icon, activeTab, setActiveTab, COLORS }) => (
+  <button
+    onClick={() => setActiveTab(tab)}
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "10px 20px",
+      borderRadius: 40,
+      border: "none",
+      background: activeTab === tab ? COLORS.purple : "transparent",
+      color: activeTab === tab ? "#fff" : COLORS.gray,
+      fontWeight: 600,
+      cursor: "pointer",
+      transition: "all 0.2s",
+    }}
+  >
+    <i className={`bi ${icon}`} style={{ fontSize: 16 }} />
+    {label}
+  </button>
+);
+
 export default function Settings() {
-  const { user, token, login } = useAuth();
+  const navigate = useNavigate();
+  const { user, logout, refreshUser } = useAuth();
   const { theme, setTheme } = useTheme();
   const COLORS = theme === "dark" ? darkTheme : lightTheme;
 
   const [activeTab, setActiveTab] = useState("profile");
   const [message, setMessage] = useState("");
-  const [notificationStatus, setNotificationStatus] = useState("default");
+  const [notificationStatus, setNotificationStatus] = useState(
+    typeof window !== "undefined" && "Notification" in window
+      ? Notification.permission
+      : "default",
+  );
   const [pushEnabled, setPushEnabled] = useState(false);
-
-  // Check browser notification permission
-  useEffect(() => {
-    if ("Notification" in window) {
-      setNotificationStatus(Notification.permission);
-    }
-  }, []);
 
   // Listen for foreground messages
   useEffect(() => {
@@ -81,21 +106,28 @@ export default function Settings() {
   const [otpCode, setOtpCode] = useState("");
   const [enabling, setEnabling] = useState(false);
 
+  // Transaction PIN state
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
+  const [pinPassword, setPinPassword] = useState("");
+  const [pinMessage, setPinMessage] = useState("");
+  const [pinLoading, setPinLoading] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleteMessage, setDeleteMessage] = useState("");
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   // Profile update
   const updateProfile = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        "https://sendnawbackend.onrender.com/api/settings/update_profile.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ email, phone }),
+      const res = await fetch(`${SETTINGS_API}/update_profile.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      );
+        body: JSON.stringify({ email, phone }),
+      });
       const data = await res.json();
       if (data.success) {
         setMessage("Profile updated. Refresh to see changes.");
@@ -103,7 +135,7 @@ export default function Settings() {
       } else {
         setMessage(data.message);
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error");
     }
   };
@@ -116,20 +148,17 @@ export default function Settings() {
       return;
     }
     try {
-      const res = await fetch(
-        "https://sendnawbackend.onrender.com/api/settings/change_password.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            current_password: currentPassword,
-            new_password: newPassword,
-          }),
+      const res = await fetch(`${SETTINGS_API}/change_password.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      );
+        body: JSON.stringify({
+          current_password: currentPassword,
+          new_password: newPassword,
+        }),
+      });
       const data = await res.json();
       if (data.success) {
         setMessage("Password changed");
@@ -139,7 +168,7 @@ export default function Settings() {
       } else {
         setMessage(data.message);
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error");
     }
   };
@@ -147,12 +176,9 @@ export default function Settings() {
   // 2FA setup
   const setup2FA = async () => {
     try {
-      const res = await fetch(
-        "https://sendnawbackend.onrender.com/api/settings/2fa_setup.php",
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        },
-      );
+      const res = await fetch(`${SETTINGS_API}/2fa_setup.php`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       const data = await res.json();
       if (data.success) {
         setSecret(data.secret);
@@ -164,7 +190,7 @@ export default function Settings() {
       } else {
         setMessage(data.message);
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error");
     }
   };
@@ -176,17 +202,14 @@ export default function Settings() {
       return;
     }
     try {
-      const res = await fetch(
-        "https://sendnawbackend.onrender.com/api/settings/2fa_enable.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ code: otpCode, secret }),
+      const res = await fetch(`${SETTINGS_API}/2fa_enable.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      );
+        body: JSON.stringify({ code: otpCode, secret }),
+      });
       const data = await res.json();
       if (data.success) {
         setMessage("2FA enabled successfully");
@@ -198,7 +221,7 @@ export default function Settings() {
       } else {
         setMessage(data.message);
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error");
     }
   };
@@ -206,13 +229,10 @@ export default function Settings() {
   // Disable 2FA
   const disable2FA = async () => {
     try {
-      const res = await fetch(
-        "https://sendnawbackend.onrender.com/api/settings/2fa_disable.php",
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        },
-      );
+      const res = await fetch(`${SETTINGS_API}/2fa_disable.php`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       const data = await res.json();
       if (data.success) {
         setMessage("2FA disabled");
@@ -220,8 +240,86 @@ export default function Settings() {
       } else {
         setMessage(data.message);
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error");
+    }
+  };
+
+  const handleSetPin = async () => {
+    setPinMessage("");
+    if (pin.length !== 4 || confirmPin.length !== 4) {
+      setPinMessage("Enter a valid 4-digit PIN in both fields.");
+      return;
+    }
+    if (pin !== confirmPin) {
+      setPinMessage("PINs do not match.");
+      return;
+    }
+    if (!pinPassword) {
+      setPinMessage("Enter your current password to confirm.");
+      return;
+    }
+
+    setPinLoading(true);
+    try {
+      const res = await fetch(`${SETTINGS_API}/set_pin.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ pin, password: pinPassword }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPinMessage("Transaction PIN saved successfully.");
+        setPin("");
+        setConfirmPin("");
+        setPinPassword("");
+        await refreshUser();
+      } else {
+        setPinMessage(data.message || "Failed to save PIN.");
+      }
+    } catch {
+      setPinMessage("Network error. Please try again.");
+    } finally {
+      setPinLoading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleteMessage("");
+    if (!deletePassword) {
+      setDeleteMessage("Enter your password to confirm account deletion.");
+      return;
+    }
+    const confirmed = window.confirm(
+      "Delete your account? This action will deactivate your account and sign you out.",
+    );
+    if (!confirmed) return;
+
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`${SETTINGS_API}/delete_account.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ password: deletePassword }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDeleteMessage("Your account has been deactivated.");
+        logout();
+        navigate("/login");
+      } else {
+        setDeleteMessage(data.message || "Failed to delete account.");
+      }
+    } catch {
+      setDeleteMessage("Network error. Please try again.");
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -257,28 +355,6 @@ export default function Settings() {
     }
   };
 
-  const TabButton = ({ tab, label, icon }) => (
-    <button
-      onClick={() => setActiveTab(tab)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "10px 20px",
-        borderRadius: 40,
-        border: "none",
-        background: activeTab === tab ? COLORS.purple : "transparent",
-        color: activeTab === tab ? "#fff" : COLORS.gray,
-        fontWeight: 600,
-        cursor: "pointer",
-        transition: "all 0.2s",
-      }}
-    >
-      <i className={`bi ${icon}`} style={{ fontSize: 16 }} />
-      {label}
-    </button>
-  );
-
   return (
     <div
       style={{
@@ -312,12 +388,70 @@ export default function Settings() {
           paddingBottom: 8,
         }}
       >
-        <TabButton tab="profile" label="Profile" icon="bi-person-circle" />
-        <TabButton tab="password" label="Password" icon="bi-key" />
-        <TabButton tab="2fa" label="2FA" icon="bi-shield-lock" />
-        <TabButton tab="sessions" label="Sessions" icon="bi-windows" />
-        <TabButton tab="notifications" label="Notifications" icon="bi-bell" />
-        <TabButton tab="theme" label="Theme" icon="bi-palette" />
+        <TabButton
+          tab="profile"
+          label="Profile"
+          icon="bi-person-circle"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="password"
+          label="Password"
+          icon="bi-key"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="security"
+          label="Transaction PIN"
+          icon="bi-lock-fill"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="2fa"
+          label="2FA"
+          icon="bi-shield-lock"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="sessions"
+          label="Sessions"
+          icon="bi-windows"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="notifications"
+          label="Notifications"
+          icon="bi-bell"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="support"
+          label="Help & Legal"
+          icon="bi-life-preserver"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
+        <TabButton
+          tab="theme"
+          label="Theme"
+          icon="bi-palette"
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          COLORS={COLORS}
+        />
       </div>
 
       {/* Profile Tab */}
@@ -531,6 +665,188 @@ export default function Settings() {
         </div>
       )}
 
+      {/* Security Tab */}
+      {activeTab === "security" && (
+        <div
+          style={{
+            background: COLORS.cardBg,
+            borderRadius: 24,
+            padding: 24,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: 18,
+              fontWeight: 600,
+              marginBottom: 16,
+              color: COLORS.text,
+            }}
+          >
+            Transaction PIN
+          </h3>
+          <p style={{ color: COLORS.textSecondary, marginBottom: 20 }}>
+            A transaction PIN helps protect money transfers and withdrawals. You
+            will need it to confirm every transfer or withdrawal.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gap: 16,
+            }}
+          >
+            <div
+              style={{
+                padding: 16,
+                borderRadius: 18,
+                background: COLORS.inputBg,
+                border: `1px solid ${COLORS.border}`,
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: COLORS.text,
+                }}
+              >
+                Current status
+              </p>
+              <p
+                style={{
+                  margin: "8px 0 0",
+                  fontSize: 13,
+                  color: user?.has_pin ? COLORS.success : COLORS.textSecondary,
+                }}
+              >
+                {user?.has_pin
+                  ? "PIN is set and active. You must enter it when sending money or withdrawing."
+                  : "No transaction PIN configured yet. Set one now to secure your account."}
+              </p>
+            </div>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await handleSetPin();
+              }}
+              style={{ display: "grid", gap: 16 }}
+            >
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: 8,
+                    fontWeight: 500,
+                    color: COLORS.gray,
+                  }}
+                >
+                  4-digit PIN
+                </label>
+                <input
+                  type="password"
+                  maxLength={4}
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+                  placeholder="Enter new PIN"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    borderRadius: 12,
+                    border: `1px solid ${COLORS.border}`,
+                    background: COLORS.inputBg,
+                    color: COLORS.text,
+                  }}
+                />
+              </div>
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: 8,
+                    fontWeight: 500,
+                    color: COLORS.gray,
+                  }}
+                >
+                  Confirm PIN
+                </label>
+                <input
+                  type="password"
+                  maxLength={4}
+                  value={confirmPin}
+                  onChange={(e) =>
+                    setConfirmPin(e.target.value.replace(/\D/g, ""))
+                  }
+                  placeholder="Repeat new PIN"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    borderRadius: 12,
+                    border: `1px solid ${COLORS.border}`,
+                    background: COLORS.inputBg,
+                    color: COLORS.text,
+                  }}
+                />
+              </div>
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: 8,
+                    fontWeight: 500,
+                    color: COLORS.gray,
+                  }}
+                >
+                  Current password
+                </label>
+                <input
+                  type="password"
+                  value={pinPassword}
+                  onChange={(e) => setPinPassword(e.target.value)}
+                  placeholder="Enter your account password"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    borderRadius: 12,
+                    border: `1px solid ${COLORS.border}`,
+                    background: COLORS.inputBg,
+                    color: COLORS.text,
+                  }}
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={pinLoading}
+                style={{
+                  background: COLORS.purple,
+                  color: "#fff",
+                  border: "none",
+                  padding: "12px 24px",
+                  borderRadius: 40,
+                  fontWeight: 600,
+                  cursor: pinLoading ? "not-allowed" : "pointer",
+                }}
+              >
+                {user?.has_pin ? "Update PIN" : "Set PIN"}
+              </button>
+              {pinMessage && (
+                <p
+                  style={{
+                    margin: 0,
+                    color: pinMessage.includes("success")
+                      ? COLORS.success
+                      : COLORS.danger,
+                    fontWeight: 600,
+                  }}
+                >
+                  {pinMessage}
+                </p>
+              )}
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* 2FA Tab */}
       {activeTab === "2fa" && (
         <div
@@ -729,6 +1045,201 @@ export default function Settings() {
         </div>
       )}
 
+      {activeTab === "support" && (
+        <div
+          style={{
+            background: COLORS.cardBg,
+            borderRadius: 24,
+            padding: 24,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: 18,
+              fontWeight: 600,
+              marginBottom: 16,
+              color: COLORS.text,
+            }}
+          >
+            Help & Legal
+          </h3>
+          <div style={{ display: "grid", gap: 18 }}>
+            <div
+              style={{
+                padding: 18,
+                borderRadius: 18,
+                background: COLORS.inputBg,
+                border: `1px solid ${COLORS.border}`,
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: COLORS.text,
+                }}
+              >
+                Support
+              </p>
+              <p style={{ margin: "8px 0 0", color: COLORS.textSecondary }}>
+                Need help with your account? Reach out to our support team.
+              </p>
+              <div
+                style={{
+                  marginTop: 12,
+                  display: "flex",
+                  gap: 10,
+                  flexWrap: "wrap",
+                }}
+              >
+                <a
+                  href="/contact"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "10px 16px",
+                    borderRadius: 999,
+                    background: COLORS.purple,
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontWeight: 600,
+                  }}
+                >
+                  Contact Support
+                </a>
+                <a
+                  href="mailto:support@sendnaw.com"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "10px 16px",
+                    borderRadius: 999,
+                    background: COLORS.cardBg,
+                    color: COLORS.text,
+                    border: `1px solid ${COLORS.border}`,
+                    textDecoration: "none",
+                    fontWeight: 600,
+                  }}
+                >
+                  Email Support
+                </a>
+              </div>
+            </div>
+            <div
+              style={{
+                padding: 18,
+                borderRadius: 18,
+                background: COLORS.inputBg,
+                border: `1px solid ${COLORS.border}`,
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: COLORS.text,
+                }}
+              >
+                Legal & Policies
+              </p>
+              <div style={{ marginTop: 12, display: "grid", gap: 10 }}>
+                <a
+                  href="/privacy-policy"
+                  style={{
+                    color: COLORS.purple,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                  }}
+                >
+                  Privacy Policy
+                </a>
+                <a
+                  href="/terms"
+                  style={{
+                    color: COLORS.purple,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                  }}
+                >
+                  Terms & Conditions
+                </a>
+              </div>
+            </div>
+            <div
+              style={{
+                padding: 18,
+                borderRadius: 18,
+                background: COLORS.inputBg,
+                border: `1px solid ${COLORS.border}`,
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: COLORS.text,
+                }}
+              >
+                Delete account
+              </p>
+              <p style={{ margin: "8px 0 12px", color: COLORS.textSecondary }}>
+                Deactivating your account will sign you out and block future
+                logins. This action cannot be undone from the dashboard.
+              </p>
+              <input
+                type="password"
+                value={deletePassword}
+                onChange={(e) => setDeletePassword(e.target.value)}
+                placeholder="Enter your password to confirm"
+                style={{
+                  width: "100%",
+                  padding: "12px",
+                  borderRadius: 12,
+                  border: `1px solid ${COLORS.border}`,
+                  background: COLORS.cardBg,
+                  color: COLORS.text,
+                  marginBottom: 12,
+                }}
+              />
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleteLoading}
+                style={{
+                  background: COLORS.danger,
+                  color: "#fff",
+                  border: "none",
+                  padding: "12px 24px",
+                  borderRadius: 40,
+                  fontWeight: 600,
+                  cursor: deleteLoading ? "not-allowed" : "pointer",
+                }}
+              >
+                {deleteLoading ? "Deleting account…" : "Delete my account"}
+              </button>
+              {deleteMessage && (
+                <p
+                  style={{
+                    margin: "12px 0 0",
+                    color: deleteMessage.includes("success")
+                      ? COLORS.success
+                      : COLORS.danger,
+                    fontWeight: 600,
+                  }}
+                >
+                  {deleteMessage}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {activeTab === "theme" && (
         <div
           style={{
@@ -786,7 +1297,8 @@ export default function Settings() {
             </button>
           </div>
           <p style={{ marginTop: 24, color: COLORS.textSecondary }}>
-            Current selection: <strong>{theme === "light" ? "Light" : "Dark"}</strong>
+            Current selection:{" "}
+            <strong>{theme === "light" ? "Light" : "Dark"}</strong>
           </p>
         </div>
       )}

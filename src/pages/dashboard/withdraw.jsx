@@ -360,13 +360,16 @@ function StepIndicator({ step, colors }) {
 
 // ─── Main Component ────────────────────────────────────────────────────────
 export default function Withdraw() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { theme } = useTheme();
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const [amount, setAmount] = useState("");
   const [selectedBank, setSelectedBank] = useState(null);
   const [accountNumber, setAccountNumber] = useState("");
+  const [pin, setPin] = useState("");
+  const [pinError, setPinError] = useState("");
+  const [pinLoading, setPinLoading] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
@@ -429,10 +432,48 @@ export default function Withdraw() {
     }, 900);
   };
 
+  const verifyPin = async () => {
+    if (!user?.has_pin) return true;
+    setPinError("");
+    if (!pin || pin.length !== 4) {
+      setPinError("Enter your 4-digit PIN");
+      return false;
+    }
+    setPinLoading(true);
+    try {
+      const res = await fetch(
+        "https://sendnawbackend.onrender.com/api/settings/verify_pin.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ pin }),
+        },
+      );
+      const data = await res.json();
+      if (!data.success) {
+        setPinError(data.message || "Incorrect PIN");
+        return false;
+      }
+      return true;
+    } catch {
+      setPinError("Unable to verify PIN. Check your connection.");
+      return false;
+    } finally {
+      setPinLoading(false);
+    }
+  };
+
   const handleSubmit = async () => {
     if (!amount || !selectedBank || !accountNumber || !accountName) {
       setMessage({ text: "Please complete all fields.", type: "error" });
       return;
+    }
+    if (user?.has_pin) {
+      const pinOk = await verifyPin();
+      if (!pinOk) return;
     }
     setLoading(true);
     setMessage({ text: "", type: "" });
